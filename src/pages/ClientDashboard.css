@@ -1,0 +1,206 @@
+/* --- CONTENEDOR PRINCIPAL DASHBOARD --- */
+.dashboard-wrapper {
+  display: flex;
+  min-height: 100vh;
+  background-color: var(--bg-main);
+  gap: 25px;
+  padding: 25px;
+  box-sizing: border-box;
+}
+
+/* --- 👤 SIDEBAR DE PERFIL (IZQUIERDO) --- */
+.client-sidebar {
+  width: 280px;
+  background: var(--bg-card);
+  border-radius: 12px;
+  padding: 25px 20px;
+  text-align: center;
+  height: fit-content;
+  border: 1px solid #23232a;
+}
+
+.client-avatar {
+  font-size: 45px;
+  margin-bottom: 10px;
+}
+
+.client-name {
+  font-size: 18px;
+  font-weight: 700;
+  margin: 5px 0;
+  color: #fff;
+}
+
+/* --- ESTADOS DE MEMBRESÍA --- */
+.status-badge {
+  font-size: 12px;
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.status-badge.active {
+  color: var(--brand-green);
+  background: rgba(0, 179, 126, 0.1);
+}
+
+.status-badge.inactive {
+  color: var(--brand-red);
+  background: rgba(247, 90, 90, 0.1);
+}
+
+/* --- INFO DE BASE DE DATOS --- */
+.info-block {
+  margin-top: 25px;
+  border-top: 1px solid #23232a;
+  padding: paddingTop 15px;
+}
+
+.info-item {
+  text-align: left;
+  font-size: 13px;
+  color: var(--text-muted);
+  padding: 8px 0;
+}
+
+.info-item strong {
+  color: #fff;
+}
+
+.btn-logout {
+  margin-top: 25px;
+  width: 100%;
+  background-color: #1a1a20;
+  color: var(--brand-red);
+  border: 1px solid #2d2d37;
+}
+
+/* --- 🏋️‍♂️ CONTENIDO PRINCIPAL DE ENTRENAMIENTO --- */
+.client-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.client-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.col-span-2 {
+  grid-column: span 2;
+}
+
+.col-span-3 {
+  grid-column: span 3;
+}
+
+/* --- TARJETA DE RESTRICCIÓN DE ACCESO --- */
+.lock-card {
+  background: rgba(247, 90, 90, 0.05);
+  border: 1px solid var(--brand-red);
+  color: #fff;
+  border-left: 5px solid var(--brand-red);
+}
+
+/* --- BLOQUE DE RUTINAS PREMIUM --- */
+.routine-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #23232a;
+  padding-bottom: 15px;
+}
+
+.badge-nivel {
+  background: #1c1c22;
+  color: var(--brand-yellow);
+  border: 1px solid var(--brand-yellow);
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.ejercicios-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.ejercicio-item {
+  background: #1c1c22;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 13px;
+  border: 1px solid #25252d;
+}
+
+/* --- TABLA DE PAGOS DE LA BD --- */
+.payment-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 14px;
+  text-align: left;
+}
+
+.payment-table th {
+  padding: 12px;
+  background: #1c1c22;
+  color: var(--brand-yellow);
+  border-bottom: 2px solid #23232a;
+}
+
+.payment-table td {
+  padding: 12px;
+  border-bottom: 1px solid #1c1c22;
+  color: #fff;
+}
+
+.badge-success {
+  background: rgba(0, 179, 126, 0.1);
+  color: var(--brand-green);
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* --- SPINNER DE CARGA --- */
+.loading-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: var(--bg-main);
+  color: #fff;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #1c1c22;
+  border-top: 4px solid var(--brand-yellow);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 15px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@media (max-width: 992px) {
+  .dashboard-wrapper { flex-direction: column; }
+  .client-sidebar { width: 100%; box-sizing: border-box; }
+  .client-grid { grid-template-columns: 1fr; }
+  .col-span-2, .col-span-3 { grid-column: span 1; }
+  .ejercicios-grid { grid-template-columns: 1fr; }
+}

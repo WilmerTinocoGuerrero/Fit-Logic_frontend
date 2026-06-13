@@ -1,0 +1,83 @@
+/* --- CONTENEDOR DE LA PANTALLA COMPLETA --- */
+.login-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 20px;
+  background-color: var(--bg-main);
+  box-sizing: border-box;
+}
+
+/* --- TARJETA CENTRAL DE ACCESO --- */
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  border-top: 5px solid var(--brand-yellow); /* Línea superior amarilla característica */
+  box-sizing: border-box;
+}
+
+/* --- LOGOTIPO Y CABECERA --- */
+.brand-container {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.brand-logo {
+  font-size: 32px;
+  display: inline-block;
+  margin-bottom: 5px;
+  animation: pulse 2s infinite;
+}
+
+.brand-name {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.brand-name span {
+  color: var(--brand-yellow);
+}
+
+.brand-sub {
+  margin: 5px 0 0 0;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* --- FORMULARIO E INPUTS --- */
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-group {
+  margin-bottom: 18px;
+}
+
+.input-group label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--text-muted);
+}
+
+.btn-login-submit {
+  margin-top: 10px;
+  width: 100%;
+}
+
+.btn-login-submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* --- ANIMACIÓN DEL RAYO DE ALTA ENERGÍA --- */
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.1); opacity: 1; text-shadow: 0 0 10px var(--brand-yellow); }
+  100% { transform: scale(1); opacity: 0.9; }
+}

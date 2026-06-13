@@ -1,0 +1,205 @@
+/* --- ENTORNO GLOBAL EN DOS COLUMNAS --- */
+.admin-container {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 25px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+
+.admin-sidebar {
+  background: var(--bg-card);
+  border-radius: 12px;
+  padding: 25px 20px;
+  text-align: center;
+  height: fit-content;
+  border: 1px solid #23232a;
+}
+
+.admin-avatar {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  background: #1c1c22;
+  margin: 0 auto 15px;
+  border: 3px solid var(--brand-yellow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+  box-shadow: 0 0 15px rgba(245, 188, 20, 0.15);
+}
+
+.admin-user-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  margin: 5px 0;
+}
+
+.admin-badge {
+  font-size: 12px;
+  color: var(--brand-yellow);
+  background: rgba(245, 188, 20, 0.1);
+  padding: 4px 12px;
+  border-radius: 20px;
+  display: inline-block;
+  margin-bottom: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+  border: 1px solid rgba(245, 188, 20, 0.2);
+}
+
+.sidebar-meta-item {
+  text-align: left;
+  font-size: 13px;
+  border-top: 1px solid #23232a;
+  padding: 10px 0;
+  color: var(--text-muted);
+}
+
+.sidebar-meta-item strong {
+  color: #fff;
+}
+
+.btn-admin-logout {
+  margin-top: 20px;
+  width: 100%;
+  background-color: #1a1a20;
+  color: var(--brand-red);
+  border: 1px solid #2d2d37;
+}
+
+/* --- PANEL CENTRAL DERECHO --- */
+.admin-main-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.admin-header-title h1 {
+  margin: 0;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+/* --- TARJETAS DE MÉTRICAS COMPACTAS --- */
+.metrics-row {
+  display: flex;
+  gap: 20px;
+}
+
+.metric-card-box {
+  flex: 1;
+  text-align: center;
+  position: relative;
+}
+
+.metric-card-box::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--brand-yellow);
+}
+
+.metric-number {
+  color: var(--brand-yellow);
+  font-size: 38px;
+  margin: 5px 0;
+  font-weight: 700;
+}
+
+/* --- FORMULARIOS CRUD EN GRID DE 2 COLUMNAS --- */
+.forms-split-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+}
+
+.flex-btn-group {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.btn-flex-action {
+  flex: 1;
+}
+
+/* --- PANEL DE ACCIONES DE BAJA --- */
+.modification-panel {
+  border-top: 4px solid var(--brand-red);
+}
+
+/* --- SECCIÓN DE TABLAS --- */
+.tables-display-section h3 {
+  margin-bottom: 5px;
+  font-weight: 700;
+}
+
+.admin-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+  background: #111115;
+  font-size: 14px;
+}
+
+.admin-data-table th, .admin-data-table td {
+  padding: 12px;
+  border-bottom: 1px solid #23232a;
+}
+
+.admin-data-table th {
+  background-color: #181820;
+  font-weight: 600;
+}
+
+/* --- PANEL DE UTILIDADES --- */
+.utilities-box {
+  background: #141418;
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid #23232a;
+}
+
+.utility-item-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #1c1c22;
+  font-size: 14px;
+}
+
+.utility-item-row:last-child {
+  border: none;
+}
+
+.btn-utility-action {
+  padding: 6px 12px;
+  font-size: 12px;
+  background: #1c1c22;
+  color: #fff;
+  border: 1px solid #2d2d37;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-utility-action:hover {
+  border-color: var(--brand-yellow);
+  color: var(--brand-yellow);
+}
+
+/* --- RESPONSIVE DESIGN --- */
+@media (max-width: 1024px) {
+  .admin-container { grid-template-columns: 1fr; }
+  .forms-split-grid { grid-template-columns: 1fr; }
+  .metrics-row { flex-direction: column; }
+}
