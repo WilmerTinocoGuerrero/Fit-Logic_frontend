@@ -1,11 +1,16 @@
-import Home from "./pages/Home";
+import Navbar from './components/Navbar';
+import Hero from './components/Hero';
+import Features from './components/Features';
+import Footer from './components/Footer';
+import './App.css';
 
 function App() {
   return (
-    <div>
-      <h1>FIT LOGIC</h1>
-      <p>Sistema de Rutinas Personalizadas</p>
-      <Home />
+    <div className="contenedor-principal">
+      <Navbar />
+      <Hero />
+      <Features />
+      <Footer />
     </div>
   );
 }

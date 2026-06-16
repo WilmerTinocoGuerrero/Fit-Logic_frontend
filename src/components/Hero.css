@@ -1,0 +1,66 @@
+/* Contenedor principal de la portada */
+.hero {
+  /* El degradado oscurece la parte izquierda para que el texto resalte */
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.9) 10%, rgba(0, 0, 0, 0.3) 100%), 
+                    url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop');
+  background-size: cover;
+  background-position: center;
+  height: 100vh; /* Ocupa el 100% del alto de la pantalla visible */
+  display: flex;
+  align-items: center; /* Centra el contenido verticalmente */
+  padding: 0 60px;
+}
+
+/* Caja que envuelve los textos y el botón */
+.hero-content {
+  max-width: 700px; /* Evita que el texto se estire hasta el otro lado de la pantalla */
+  margin-top: 60px; /* Da un poco de espacio para que el Navbar no tape nada */
+}
+
+/* Título principal gigante */
+.hero h1 {
+  color: #FFFFFF;
+  font-size: 55px; /* Tamaño masivo como en la referencia */
+  font-weight: 800;
+  line-height: 1.1; /* Pega un poco más las líneas de texto entre sí */
+  margin-bottom: 40px;
+}
+
+/* La clase para pintar palabras de amarillo neón */
+.text-yellow {
+  color: #D4FF00;
+}
+
+/* Botón con borde amarillo */
+.btn-outline-yellow {
+  background-color: transparent;
+  color: #FFFFFF;
+  border: 2px solid #D4FF00;
+  padding: 12px 35px;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 30px; /* Bordes ovalados tipo pastilla */
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px; /* Espacio entre el texto y la flechita */
+  transition: all 0.3s ease; /* Hace que el cambio de color sea suave */
+}
+
+/* Efecto al pasar el mouse por encima del botón */
+.btn-outline-yellow:hover {
+  background-color: #D4FF00;
+  color: #000000; /* Letras negras para contrastar con el fondo amarillo */
+}
+
+/* Flechita del botón */
+.arrow-right {
+  color: #D4FF00;
+  font-size: 12px;
+  transition: all 0.3s ease;
+}
+
+/* Que la flecha también se vuelva negra al pasar el mouse */
+.btn-outline-yellow:hover .arrow-right {
+  color: #000000;
+}
