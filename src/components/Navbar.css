@@ -55,19 +55,19 @@
   margin-left: 5px;
 }
 
-/* Estilos de los iconos de redes */
-.navbar-social {
+/* Estilos del icono de Login */
+.navbar-login {
   display: flex;
-  gap: 20px;
+  align-items: center;
 }
 
-.navbar-social a {
+.navbar-login a {
   color: #FFFFFF;
-  text-decoration: none;
-  font-size: 20px;
-  transition: color 0.2s;
+  transition: color 0.2s ease, transform 0.2s ease;
+  display: flex;
 }
 
-.navbar-social a:hover {
+.navbar-login a:hover {
   color: #D4FF00;
+  transform: scale(1.1); /* Hace que el ícono crezca un poquito al pasar el mouse */
 }

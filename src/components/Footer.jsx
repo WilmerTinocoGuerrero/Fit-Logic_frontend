@@ -30,17 +30,26 @@ function Footer() {
         </div>
         
         <div className="footer-links">
+          {/* Columna Izquierda: Políticas */}
           <div className="footer-column">
             <h4>POLÍTICAS Y CONSULTAS</h4>
             <ul>
               <li><a href="#">Política de Privacidad</a></li>
               <li><a href="#">Política de Cookies</a></li>
-              <li><a href="#">Términos y Condiciones</a></li>
-              <li><a href="#">Preguntas Frecuentes</a></li>
               <li><a href="#">Libro de Reclamaciones</a></li>
             </ul>
           </div>
           
+          {/* Columna Medio: Soporte */}
+          <div className="footer-column">
+            <h4>AYUDA AL CLIENTE</h4>
+            <ul>
+              <li><a href="#">Términos y Condiciones</a></li>
+              <li><a href="#">Preguntas Frecuentes</a></li>
+            </ul>
+          </div>
+          
+          {/* Columna Redes (se queda igual) */}
           <div className="footer-column">
             <h4>SÍGUENOS EN</h4>
             <div className="social-icons">
@@ -48,6 +57,7 @@ function Footer() {
             </div>
           </div>
           
+          {/* Columna Newsletter (se queda igual) */}
           <div className="footer-column newsletter">
             <h4>INSCRÍBETE PARA RECIBIR NUESTRAS ÚLTIMAS ACTUALIZACIONES</h4>
             <input type="email" placeholder="Email" className="email-input" />
