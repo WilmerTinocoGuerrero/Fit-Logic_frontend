@@ -11,7 +11,7 @@ function Navbar() {
       {/* Centro: Links de navegación */}
       <ul className="navbar-links">
         <li><a href="#inicio" className="active">INICIO</a></li>
-        <li><a href="#metodologia">NUESTRA METODOLOGÍA</a></li>
+        <li><a href="#metodologia">METODOLOGÍA</a></li>
         <li><a href="#planes">PLANES</a></li>
         <li><a href="#sedes">SEDES <span className="arrow">▼</span></a></li>
       </ul>

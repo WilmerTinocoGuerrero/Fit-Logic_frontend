@@ -17,6 +17,26 @@ function Footer() {
           </div>
           <div className="sede-imagen-bg"></div>
         </div>
+
+        <div className="sede-card-horizontal">
+          <div className="sede-info">
+            <h4>JESUS MARÍA</h4>
+            <p>Arequipa 265</p>
+            <a href="#mas" className="link-detalles">Más detalles</a>
+            <button className="btn-yellow-solid">INCRIBIRME AHORA</button>
+          </div>
+          <div className="sede-imagen-bg"></div>
+        </div>
+
+        <div className="sede-card-horizontal">
+          <div className="sede-info">
+            <h4>LOS OLIVOS</h4>
+            <p>Av. Alfredo Mendiola 6557</p>
+            <a href="#mas" className="link-detalles">Más detalles</a>
+            <button className="btn-yellow-solid">INCRIBIRME AHORA</button>
+          </div>
+          <div className="sede-imagen-bg"></div>
+        </div>
         
         <div className="btn-center">
           <button className="btn-yellow-solid">VER TODAS LAS SEDES</button>
