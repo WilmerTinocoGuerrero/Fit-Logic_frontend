@@ -1,0 +1,73 @@
+/* Configuramos la barra principal */
+.navbar {
+  display: flex;
+  justify-content: space-between; /* Separa los 3 bloques a los extremos y al centro */
+  align-items: center; /* Centra todo verticalmente */
+  background-color: #000000;
+  padding: 20px 60px;
+  position: fixed; /* Hace que el menú persiga a la pantalla al bajar */
+  top: 0;
+  left: 0;
+  width: 100%;
+  box-sizing: border-box;
+  z-index: 1000; /* Asegura que el menú siempre esté por encima de las fotos */
+}
+
+/* Estilos del Logo FitLogic */
+.navbar-logo h2 {
+  color: #FFFFFF;
+  font-size: 24px;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: 1px;
+}
+
+.navbar-logo span {
+  font-weight: 300; /* Hace que "LOGIC" se vea más delgado que "FIT" */
+}
+
+/* Estilos de la lista de links */
+.navbar-links {
+  display: flex;
+  list-style: none;
+  gap: 35px; /* Espacio entre cada palabra */
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-links li a {
+  color: #FFFFFF;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  transition: color 0.2s ease-in-out;
+}
+
+/* El color amarillo neón para el botón activo y cuando pasas el mouse */
+.navbar-links li a.active,
+.navbar-links li a:hover {
+  color: #D4FF00; 
+}
+
+.arrow {
+  font-size: 10px;
+  margin-left: 5px;
+}
+
+/* Estilos de los iconos de redes */
+.navbar-social {
+  display: flex;
+  gap: 20px;
+}
+
+.navbar-social a {
+  color: #FFFFFF;
+  text-decoration: none;
+  font-size: 20px;
+  transition: color 0.2s;
+}
+
+.navbar-social a:hover {
+  color: #D4FF00;
+}

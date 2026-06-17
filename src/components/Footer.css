@@ -1,0 +1,167 @@
+/* Contenedor general del Footer */
+.footer-section {
+  background-color: #000000;
+  color: #FFFFFF;
+  padding: 80px 60px 40px 60px;
+}
+
+/* --- SECCIÓN DE SEDES --- */
+.sedes-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 80px;
+}
+
+.sedes-title {
+  font-size: 20px;
+  font-weight: 300;
+  letter-spacing: 2px;
+  margin-bottom: 30px;
+}
+
+/* Tarjeta horizontal de la sede */
+.sede-card-horizontal {
+  display: flex;
+  width: 100%;
+  max-width: 900px;
+  background-color: #0a0a0a;
+  border-radius: 20px;
+  border: 1px solid #333;
+  overflow: hidden;
+  margin-bottom: 30px;
+}
+
+.sede-info {
+  padding: 40px;
+  width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.sede-info h4 {
+  font-size: 24px;
+  margin: 0 0 10px 0;
+  font-weight: 400;
+  letter-spacing: 1px;
+}
+
+.sede-info p {
+  color: #AAAAAA;
+  font-size: 13px;
+  margin-bottom: 20px;
+}
+
+.link-detalles {
+  color: #FFFFFF;
+  font-size: 12px;
+  margin-bottom: 30px;
+  text-decoration: none;
+}
+
+.sede-imagen-bg {
+  width: 60%;
+  background-image: url('https://images.unsplash.com/photo-1540497077202-7c8a3999166f?q=80&w=1000');
+  background-size: cover;
+  background-position: center;
+}
+
+/* Botones amarillos sólidos */
+.btn-yellow-solid {
+  background-color: #D4FF00;
+  color: #000000;
+  border: none;
+  padding: 12px 30px;
+  font-size: 14px;
+  font-weight: 800;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btn-yellow-solid:hover {
+  opacity: 0.8;
+}
+
+.btn-full {
+  width: 100%;
+  margin-top: 10px;
+}
+
+/* --- FOOTER FINAL (Enlaces) --- */
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #222;
+  padding-top: 60px;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.footer-logo h2 {
+  font-size: 24px;
+  font-weight: 800;
+  margin: 0;
+}
+
+.footer-logo span {
+  font-weight: 300;
+}
+
+.footer-links {
+  display: flex;
+  gap: 60px;
+  flex-wrap: wrap;
+}
+
+.footer-column h4 {
+  font-size: 12px;
+  font-weight: 800;
+  margin-bottom: 20px;
+}
+
+.footer-column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-column ul li {
+  margin-bottom: 10px;
+}
+
+.footer-column ul li a {
+  color: #AAAAAA;
+  text-decoration: none;
+  font-size: 12px;
+  transition: color 0.2s;
+}
+
+.footer-column ul li a:hover {
+  color: #D4FF00;
+}
+
+.social-icons a {
+  color: #FFFFFF;
+  font-size: 18px;
+  margin-right: 15px;
+  text-decoration: none;
+}
+
+.email-input {
+  background-color: transparent;
+  border: 1px solid #555;
+  color: #FFFFFF;
+  padding: 12px 15px;
+  border-radius: 20px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  outline: none;
+}
+
+.email-input:focus {
+  border-color: #D4FF00;
+}

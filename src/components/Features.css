@@ -1,0 +1,90 @@
+/* Contenedor de toda la sección */
+.features-section {
+  background-color: #000000;
+  color: #FFFFFF;
+  padding: 80px 60px;
+  text-align: center;
+}
+
+/* Estilos de los títulos principales */
+.features-header .icon-timer {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
+
+.features-header h2 {
+  font-size: 24px;
+  font-weight: 300;
+  letter-spacing: 2px;
+  margin-bottom: 15px;
+}
+
+.features-header p {
+  font-size: 14px;
+  color: #CCCCCC;
+  max-width: 600px;
+  margin: 0 auto 50px auto;
+  line-height: 1.6;
+}
+
+.features-subheader h3 {
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  margin-bottom: 40px;
+}
+
+/* Flexbox para alinear las 3 tarjetas */
+.features-cards-container {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  flex-wrap: wrap; /* Si la pantalla es pequeña, se acomodan abajo */
+}
+
+/* Estilos de cada tarjeta (Los bordes amarillos) */
+.feature-card {
+  border: 1px solid #D4FF00;
+  border-radius: 15px;
+  width: 320px;
+  height: 480px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end; /* Tira el texto hacia abajo */
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s ease;
+}
+
+/* Efecto saltarín al pasar el mouse */
+.feature-card:hover {
+  transform: translateY(-10px);
+}
+
+/* Imágenes de fondo para las tarjetas oscurecidas */
+.card-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.5; /* Oscurece la foto para que el texto resalte */
+  z-index: 1;
+}
+
+/* Enlaces temporales de fotos para que no se vea vacío */
+.app-img { background-image: url('https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?q=80&w=800'); }
+.trainer-img { background-image: url('https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?q=80&w=800'); }
+.equip-img { background-image: url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=800'); }
+
+/* El texto blanco de las tarjetas */
+.feature-card h4 {
+  position: relative;
+  z-index: 2; /* Pone el texto por encima de la foto */
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 30px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.9); /* Sombrilla para que se lea mejor */
+}
