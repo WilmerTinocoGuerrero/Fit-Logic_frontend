@@ -1,73 +1,147 @@
-/* Configuramos la barra principal */
+/* ========================================= */
+/* ESTILOS PARA PC (Escritorio)              */
+/* ========================================= */
 .navbar {
   display: flex;
-  justify-content: space-between; /* Separa los 3 bloques a los extremos y al centro */
-  align-items: center; /* Centra todo verticalmente */
-  background-color: #000000;
+  justify-content: space-between; /* Separa los elementos a los extremos */
+  align-items: center;
   padding: 20px 60px;
-  position: fixed; /* Hace que el menú persiga a la pantalla al bajar */
-  top: 0;
-  left: 0;
-  width: 100%;
-  box-sizing: border-box;
-  z-index: 1000; /* Asegura que el menú siempre esté por encima de las fotos */
+  background-color: #000000;
+  position: relative; 
+  z-index: 1000;
 }
 
-/* Estilos del Logo FitLogic */
 .navbar-logo h2 {
   color: #FFFFFF;
+  margin: 0;
   font-size: 24px;
   font-weight: 800;
-  margin: 0;
-  letter-spacing: 1px;
 }
 
 .navbar-logo span {
-  font-weight: 300; /* Hace que "LOGIC" se vea más delgado que "FIT" */
+  font-weight: 300;
 }
 
-/* Estilos de la lista de links */
-.navbar-links {
+/* Menú central en PC */
+.nav-menu {
   display: flex;
   list-style: none;
-  gap: 35px; /* Espacio entre cada palabra */
+  gap: 30px;
   margin: 0;
   padding: 0;
 }
 
-.navbar-links li a {
+.nav-menu a {
   color: #FFFFFF;
   text-decoration: none;
   font-size: 13px;
   font-weight: 700;
   letter-spacing: 1px;
-  transition: color 0.2s ease-in-out;
+  transition: color 0.3s;
 }
 
-/* El color amarillo neón para el botón activo y cuando pasas el mouse */
-.navbar-links li a.active,
-.navbar-links li a:hover {
-  color: #D4FF00; 
+.nav-menu a:hover {
+  color: #D4FF00;
 }
 
-.arrow {
-  font-size: 10px;
-  margin-left: 5px;
+/* Estado Activo para el enlace de PC (se queda en amarillo) */
+.nav-menu a.active {
+  color: #D4FF00;
 }
 
-/* Estilos de los iconos de redes */
-.navbar-social {
-  display: flex;
-  gap: 20px;
-}
-
+/* Iconos de redes sociales a la derecha */
 .navbar-social a {
   color: #FFFFFF;
+  font-size: 18px;
+  margin-left: 15px;
   text-decoration: none;
-  font-size: 20px;
-  transition: color 0.2s;
 }
 
-.navbar-social a:hover {
-  color: #D4FF00;
+/* Ocultamos la hamburguesa en PC */
+.hamburger {
+  display: none;
+  cursor: pointer;
+}
+
+.bar {
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 5px auto;
+  background-color: #FFFFFF;
+  transition: all 0.3s ease-in-out;
+}
+
+/* ========================================= */
+/* ESTILOS PARA CELULAR (Offcanvas Menu)     */
+/* ========================================= */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 15px 20px;
+  }
+
+  /* Ocultamos las redes sociales para hacer espacio */
+  .navbar-social {
+    display: none; 
+  }
+
+  /* Mostramos la hamburguesa y le damos prioridad visual */
+  .hamburger {
+    display: block;
+    z-index: 2000; /* Asegura que la X quede por encima del fondo oscuro */
+    position: relative;
+  }
+
+  /* Animación de la "X" al abrir el menú */
+  .hamburger.active .bar:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+    background-color: #D4FF00; /* Cambiamos la X a amarillo para que resalte */
+  }
+  .hamburger.active .bar:nth-child(2) {
+    opacity: 0; 
+  }
+  .hamburger.active .bar:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+    background-color: #D4FF00;
+  }
+
+  /* DISEÑO DEL MENÚ LATERAL OSCURO */
+  .nav-menu {
+    position: fixed;
+    top: 0;
+    right: -100%; /* Escondido a la derecha */
+    width: 280px; /* Ancho fijo para el celular */
+    height: 100vh; 
+    background-color: #0a0a0a; /* Un negro ligeramente distinto para dar contraste */
+    flex-direction: column;
+    
+    /* CAMBIO CLAVE: Alineamos los ítems hacia arriba a la izquierda */
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding-top: 100px; /* Espacio desde la parte superior */
+    padding-left: 40px; /* Espacio desde la izquierda */
+    gap: 20px; /* Separación vertical entre enlaces */
+    
+    transition: right 0.4s ease-in-out; /* Movimiento suave */
+    
+    /* CAMBIO CLAVE: Sombreado de borde amarillo neón (efecto de brillo) */
+    box-shadow: -5px 0 15px rgba(212, 255, 0, 0.5); 
+    
+    z-index: 1500;
+  }
+
+  .nav-menu.active {
+    right: 0; /* Al darle click, se mueve a la pantalla */
+  }
+
+  .nav-menu a {
+    font-size: 18px; /* Letras un poco más grandes para que se puedan tocar fácil */
+    text-align: left;
+    width: 100%;
+  }
+  
+  /* Estado Activo para el enlace de celular (se queda en amarillo) */
+  .nav-menu a.active {
+    color: #D4FF00;
+  }
 }
