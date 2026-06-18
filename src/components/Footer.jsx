@@ -30,14 +30,22 @@ function Footer() {
         </div>
         
         <div className="footer-links">
+          {/* Columna Izquierda: Políticas */}
           <div className="footer-column">
             <h4>POLÍTICAS Y CONSULTAS</h4>
             <ul>
               <li><a href="#">Política de Privacidad</a></li>
               <li><a href="#">Política de Cookies</a></li>
+              <li><a href="#">Libro de Reclamaciones</a></li>
+            </ul>
+          </div>
+          
+          {/* Columna Medio: Soporte */}
+          <div className="footer-column">
+            <h4>AYUDA AL CLIENTE</h4>
+            <ul>
               <li><a href="#">Términos y Condiciones</a></li>
               <li><a href="#">Preguntas Frecuentes</a></li>
-              <li><a href="#">Libro de Reclamaciones</a></li>
             </ul>
           </div>
           

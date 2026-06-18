@@ -34,11 +34,14 @@ function Navbar() {
         </li>
       </ul>
 
-      {/* Lado Derecho: Redes Sociales */}
-      <div className="navbar-social">
-        {/* Usamos emojis por ahora, luego puedes cambiarlos por íconos SVG reales */}
-        <a href="#instagram">📷</a>
-        <a href="#tiktok">🎵</a>
+      {/* Lado Derecho: Login (Icono de Persona) */}
+      <div className="navbar-login">
+        <a href="#login" title="Iniciar Sesión">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+        </a>
       </div>
 
       {/* Botón de Hamburguesa (Solo se verá en celular) */}

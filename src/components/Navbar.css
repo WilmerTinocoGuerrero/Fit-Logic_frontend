@@ -49,12 +49,21 @@
   color: #D4FF00;
 }
 
-/* Iconos de redes sociales a la derecha */
-.navbar-social a {
+/* Estilos del icono de Login */
+.navbar-login {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-login a {
   color: #FFFFFF;
-  font-size: 18px;
-  margin-left: 15px;
-  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+  display: flex;
+}
+
+.navbar-login a:hover {
+  color: #D4FF00;
+  transform: scale(1.1); /* Hace que el ícono crezca un poquito al pasar el mouse */
 }
 
 /* Ocultamos la hamburguesa en PC */

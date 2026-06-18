@@ -26,7 +26,7 @@ function Planes() {
             <li>✔️ Acceso a zona de musculación y cardio</li>
             <li>✔️ Vestidores y duchas</li>
             <li className="disabled">❌ Invitado mensual</li>
-            <li className="disabled">❌ Acceso a todas las sedes</li>
+            <li className="disabled">❌ Acceso limitado</li>
           </ul>
           <button className="btn-plan-outline">ELEGIR PLAN</button>
         </div>
@@ -47,7 +47,7 @@ function Planes() {
             <li>✔️ Acceso a TODAS las zonas</li>
             <li>✔️ Vestidores y duchas</li>
             <li>✔️ Trae a 1 amigo invitado al mes</li>
-            <li>✔️ Acceso a TODAS las sedes FitLogic</li>
+            <li>✔️ TODAS las ventajas del programa Fit-Logic</li>
           </ul>
           <button className="btn-plan-solid">ELEGIR PLAN</button>
         </div>

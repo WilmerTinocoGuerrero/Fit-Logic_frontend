@@ -112,8 +112,11 @@
 
 .footer-links {
   display: flex;
-  gap: 60px;
+  flex: 1; /* Esto es la magia: le dice a la caja que crezca y ocupe todo el espacio negro disponible */
+  justify-content: space-evenly; /* Esto reparte tus 4 columnas equitativamente en ese espacio */
+  margin-left: 50px; /* Le da un respiro para que no se pegue al logo de FitLogic */
   flex-wrap: wrap;
+  gap: 30px;
 }
 
 .footer-column h4 {
