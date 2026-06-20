@@ -10,14 +10,6 @@
   text-align: center;
 }
 
-/* Estilos de los títulos principales */
-/* EN LA PARTE DE "TU TIEMPO ES VALIOSO"*/
-.features-header .icon-timer {
-  font-size: 40px;
-  margin-bottom: 10px;
-  font-family: 'Arial', sans-serif; /* Puedes cambiar la fuente si quieres un estilo diferente */
-}
-
 
 /* Título principal y descripción: "Somos un gimnasio boutique...." */
 .features-header h2 {
@@ -113,4 +105,7 @@
   width: 220px; /* Puedes subir o bajar este número para cambiar el tamaño */
   height: auto;
   margin-bottom: 15px;
+
+
+  
 }
