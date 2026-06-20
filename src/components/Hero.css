@@ -17,6 +17,7 @@
   height: 100%;
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
   opacity: 0; /* Oculta todas las imágenes por defecto */
   transition: opacity 1s ease-in-out; /* Hace el efecto de desvanecimiento suave */
   z-index: 1;

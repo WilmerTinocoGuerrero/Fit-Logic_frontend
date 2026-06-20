@@ -30,7 +30,9 @@ function Hero() {
       className="hero"
       // Inyectamos la imagen de fondo dinámicamente según el currentIndex
       style={{ 
-        backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 0.9) 10%, rgba(0, 0, 0, 0.3) 100%), url('${images[currentIndex]}')` 
+        backgroundImage: `linear-gradient(to right, rgba(0, 0, 0, 0.9) 10%, rgba(0, 0, 0, 0.3) 100%), url('${images[currentIndex]}')`, 
+        backgroundSize: 'cover',
+        backgroundPosition: 'center'
       }}
     >
       <div className="hero-content">
