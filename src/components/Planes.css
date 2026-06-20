@@ -1,0 +1,140 @@
+/* Contenedor principal de los planes */
+.planes-section {
+  background-color: #000000;
+  color: #FFFFFF;
+  padding: 100px 60px;
+  text-align: center;
+}
+
+.planes-header h2 {
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+.planes-header p {
+  color: #AAAAAA;
+  margin-bottom: 60px;
+}
+
+/* Flexbox para poner las tarjetas una al lado de la otra */
+.planes-container {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+/* Diseño base de la tarjeta */
+.plan-card {
+  background-color: #0a0a0a;
+  border: 1px solid #333;
+  border-radius: 15px;
+  padding: 40px;
+  width: 320px;
+  text-align: left;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Diseño de la tarjeta destacada (VIP) */
+.plan-destacado {
+  border: 2px solid #D4FF00;
+}
+
+/* Etiqueta amarilla de "El más ventajoso" */
+.badge-ventajoso {
+  position: absolute;
+  top: -15px;
+  left: 30px;
+  background-color: #D4FF00;
+  color: #000000;
+  font-size: 12px;
+  font-weight: 800;
+  padding: 5px 15px;
+  border-radius: 15px;
+}
+
+.plan-title h3 {
+  font-size: 24px;
+  margin: 0 0 10px 0;
+  color: #FFFFFF;
+}
+
+.plan-desc {
+  font-size: 14px;
+  color: #AAAAAA;
+  margin-bottom: 25px;
+  min-height: 40px;
+}
+
+.plan-price {
+  font-size: 45px;
+  font-weight: 800;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #333;
+  padding-bottom: 20px;
+}
+
+.currency {
+  font-size: 20px;
+  vertical-align: super; /* Sube un poco el símbolo de Soles */
+}
+
+.month {
+  font-size: 16px;
+  font-weight: 400;
+  color: #AAAAAA;
+}
+
+/* Lista de beneficios */
+.plan-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 30px 0;
+  flex-grow: 1; /* Empuja el botón siempre hacia abajo */
+}
+
+.plan-features li {
+  font-size: 14px;
+  margin-bottom: 15px;
+  color: #FFFFFF;
+}
+
+.plan-features li.disabled {
+  color: #555555;
+}
+
+/* Botones exclusivos para las tarjetas */
+.btn-plan-outline {
+  background-color: transparent;
+  color: #FFFFFF;
+  border: 2px solid #FFFFFF;
+  padding: 15px;
+  border-radius: 30px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-plan-outline:hover {
+  background-color: #FFFFFF;
+  color: #000000;
+}
+
+.btn-plan-solid {
+  background-color: #D4FF00;
+  color: #000000;
+  border: none;
+  padding: 15px;
+  border-radius: 30px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-plan-solid:hover {
+  opacity: 0.8;
+}

@@ -39,7 +39,7 @@ function Footer() {
               <li><a href="#">Libro de Reclamaciones</a></li>
             </ul>
           </div>
-          
+
           {/* Columna Medio: Soporte */}
           <div className="footer-column">
             <h4>AYUDA AL CLIENTE</h4>
