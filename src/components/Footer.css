@@ -112,8 +112,11 @@
 
 .footer-links {
   display: flex;
-  gap: 60px;
+  flex: 1; 
+  justify-content: space-evenly; 
+  margin-left: 50px; 
   flex-wrap: wrap;
+  gap: 30px;
 }
 
 .footer-column h4 {

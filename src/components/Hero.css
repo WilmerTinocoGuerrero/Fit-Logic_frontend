@@ -1,22 +1,53 @@
 /* Contenedor principal de la portada */
 .hero {
-  /* El degradado oscurece la parte izquierda para que el texto resalte */
-  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.9) 10%, rgba(0, 0, 0, 0.3) 100%), 
-                    url('https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1470&auto=format&fit=crop');
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 0 60px;
+  overflow: hidden; /* Evita que nada se salga del recuadro */
+}
+
+/* Configuración de cada imagen del slider */
+.hero-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   background-size: cover;
   background-position: center;
-  height: 100vh; /* Ocupa el 100% del alto de la pantalla visible */
-  display: flex;
-  align-items: center; /* Centra el contenido verticalmente */
-  padding: 0 60px;
+  background-repeat: no-repeat;
+  opacity: 0; /* Oculta todas las imágenes por defecto */
+  transition: opacity 1s ease-in-out; /* Hace el efecto de desvanecimiento suave */
+  z-index: 1;
 }
 
-/* Caja que envuelve los textos y el botón */
+/* Solo la imagen actual (activa) se muestra */
+.hero-slide.active {
+  opacity: 1;
+}
+
+/* El degradado negro por encima del slider para que se lea el texto */
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.9) 10%, rgba(0, 0, 0, 0.3) 100%);
+  z-index: 2;
+}
+
+/* caja que envuelve los textos y el botón */
 .hero-content {
-  max-width: 700px; /* Evita que el texto se estire hasta el otro lado de la pantalla */
-  margin-top: 60px; /* Da un poco de espacio para que el Navbar no tape nada */
+  position: relative;
+  z-index: 3; /* Asegura que el texto esté por encima de las fotos y el degradado */
+  max-width: 700px;
+  margin-top: 60px;
 }
 
+/* ... el resto de tu Hero.css (h1, text-yellow, botón, etc.) se queda exactamente igual ... */
 /* Título principal gigante */
 .hero h1 {
   color: #FFFFFF;
@@ -64,3 +95,57 @@
 .btn-outline-yellow:hover .arrow-right {
   color: #000000;
 }
+
+
+/*------ CAROUSEL -------------------------------------------------------------- */
+.carousel-indicators {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%); /* Los centra exactamente en el medio */
+  display: flex;
+  gap: 15px;
+  z-index: 10;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid #FFFFFF;
+  background-color: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* El punto de la foto que se está viendo se pinta de amarillo */
+.dot.active {
+  background-color: #D4FF00;
+  border-color: #D4FF00;
+  transform: scale(1.3); /* Lo hace un poquito más grande para resaltar */
+}
+
+/*------------------------------------------------------------------------------ */
+
+
+ /* Pantallas de celular y tablets, (hasta 768px de ancho)*/
+  @media (max-width: 768px) {
+
+    /* hacemos el contenedor principal un poco más ajustad */
+    .hero {
+      padding: 0 20px;
+      background-position: left;  /*<-- ajusta la foto para que se vea vertical */
+    }
+
+    /* Achicamos la letra del título gigante */
+    .hero h1 {
+      font-size: 35px;  /* En lugar de los 55px que tenías para PC */
+      margin-bottom: 25px;
+    }
+
+    /* Hacemos el botón un poco más pequeño */
+     .btn-outline-yellow {
+      padding: 10px 25px;
+      font-size: 14px;
+     }
+  }
