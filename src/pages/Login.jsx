@@ -1,10 +1,48 @@
-import { Container, Row, Col, Form, Button, Card } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Container, Row, Col, Form, Button, Card, Alert } from 'react-bootstrap';
+import { Link, useNavigate } from 'react-router-dom';
+import { loginUsuario } from '../services/api'; // <--- importamos a nuestro mensajero
 
 const Login = () => {
-  return (
+
+  // Estados para atrapar lo que el usuario escribe
+  const [correo, setCorreo] = useState('');
+  const [password, setPassword] = useState('');
+
+  // Estados para manejar mensajes de error o éxito en pantalla
+  const [errorMensaje, setErrorMensaje] = useState('');
+
+  const navigate = useNavigate(); // herramienta para cambiar de página
+
+  // función que se ejecuta cuando damos click en "Ingresar"
+  const manejarSubmit = async (e) => {
+    e.preventDefault();  // evita que la página se recargue
+    setErrorMensaje(''); // limpiamos errores anteriores
+
+
+    try{
+      // 1. enviamos los datos al backend
+      const data = await loginUsuario(correo, password);
+
+      // 2. Si todo va bien... guardamos el TOKEN vip en el navegador
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('usuario_nombre', data.usuario.nombre);
+      localStorage.setItem('usuario_rol', data.usuario.id_rol);
+
+      console.log("¡Bienvenido!", data.usuario.nombre);
+
+      // 3. redirigimos a la página de inicio o dashboard
+      // por el momento lo mandaremos el HOME , luego lo mandaremos al dashboard
+      navigate('/dashboard');
+    } catch (error) {
+      // si el backend rechaza la petición, mostramos alerta
+      setErrorMensaje(error.message);
+    }
+  };
+
+
+return (
     <Container fluid className="d-flex justify-content-center align-items-center" style={{ minHeight: "100vh", backgroundColor: "#0a0a0a" }}>
-      {/* El comentario ahora está ADENTRO del contenedor principal */}
       <Row className="w-100">
         <Col md={{ span: 6, offset: 3 }} lg={{ span: 4, offset: 4 }}>
           
@@ -13,13 +51,19 @@ const Login = () => {
               <h2 className="text-center mb-4 fw-bold">FIT<span style={{color: "#c6ff00"}}>LOGIC</span></h2>
               <p className="text-center text-light mb-4">Ingresa a tu cuenta para continuar</p>
               
-              <Form>
+              {/* Si hay error, mostramos una alerta roja de Bootstrap */}
+              {errorMensaje && <Alert variant="danger">{errorMensaje}</Alert>}
+
+              {/* Conectamos el formulario con manejarSubmit */}
+              <Form onSubmit={manejarSubmit}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                   <Form.Label>Correo Electrónico</Form.Label>
                   <Form.Control 
                     type="email" 
                     placeholder="ejemplo@fitlogic.com" 
                     className="bg-dark text-white border-secondary"
+                    value={correo}
+                    onChange={(e) => setCorreo(e.target.value)}
                     required 
                   />
                 </Form.Group>
@@ -30,6 +74,8 @@ const Login = () => {
                     type="password" 
                     placeholder="********" 
                     className="bg-dark text-white border-secondary"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     required 
                   />
                 </Form.Group>

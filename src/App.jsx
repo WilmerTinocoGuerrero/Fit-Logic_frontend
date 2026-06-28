@@ -6,6 +6,7 @@ import Planes from './components/Planes'; // <-- Importamos el componente
 import Footer from './components/Footer';
 import Login from './pages/Login';
 import Registro from './pages/Registro';
+import Dashboard from './pages/Dashboard';
 import './App.css';
 
 function App() {
@@ -36,6 +37,8 @@ function App() {
           {/*Ruta del Registro (/registro) */}
           <Route path="/registro" element={<Registro />} />
 
+          {/*Ruta del Dashboard (/dashboard) */}
+          <Route path="/dashboard" element={<Dashboard />} />
        </Routes>
      </div>
    </Router>
