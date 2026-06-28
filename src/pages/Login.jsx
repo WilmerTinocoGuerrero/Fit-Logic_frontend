@@ -1,18 +1,24 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Form, Button, Card, Alert } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { loginUsuario } from '../services/api'; // <--- importamos a nuestro mensajero
 
 const Login = () => {
-
   // Estados para atrapar lo que el usuario escribe
   const [correo, setCorreo] = useState('');
   const [password, setPassword] = useState('');
-
   // Estados para manejar mensajes de error o éxito en pantalla
   const [errorMensaje, setErrorMensaje] = useState('');
-
   const navigate = useNavigate(); // herramienta para cambiar de página
+
+  
+  // esta pequeña parte es el bloque de seguridad (al momento de que el "Usuario" le de a "Retroceder pagina" )
+useEffect(() => {
+    if (localStorage.getItem('token')) {
+      navigate('/dashboard', { replace: true });
+    }
+  }, [navigate]);
+  // ========================================================
 
   // función que se ejecuta cuando damos click en "Ingresar"
   const manejarSubmit = async (e) => {
@@ -29,7 +35,14 @@ const Login = () => {
       localStorage.setItem('usuario_nombre', data.usuario.nombre);
       localStorage.setItem('usuario_rol', data.usuario.id_rol);
 
+      // 3. AGREGAMOS ESTE COMANDO PARA GUARDAR EL ID:  (guardamos en la memoria del navegador)
+      localStorage.setItem('usuario_id', data.usuario.id_usuario);
+      
+      //  Guardamos si el perfil está completo
+      localStorage.setItem('perfil_completo', data.usuario.perfil_completo);
+
       console.log("¡Bienvenido!", data.usuario.nombre);
+
 
       // 3. redirigimos a la página de inicio o dashboard
       // por el momento lo mandaremos el HOME , luego lo mandaremos al dashboard

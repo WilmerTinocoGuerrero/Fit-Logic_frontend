@@ -54,3 +54,30 @@ export const loginUsuario = async (correo, password) => {
       throw error;
     }
   };
+
+
+
+// ----------- MENSAJERO : (ACTUALIZAR LOS DATOS FISICOS DEL CLIENTE)
+export const actualizarPerfil = async (id_usuario, peso, altura, edad) => {
+     try {
+      const respuesta = await fetch(`${API_URL}/actualizar_perfil`, {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+        },
+          // empaquetamos los datos como pide exactamente el "app.py"
+          body: JSON.stringify({ id_usuario, peso, altura, edad })
+      });
+
+      const data = await respuesta.json();   // <-- la rpta nos mostrará en Json
+
+      if (!respuesta.ok) { 
+        throw new Error(data.error || "Error al actualizar perfil");
+      }
+
+      return data;   // Retorna el mensaje con exito
+    } catch (error) {   
+      console.error("Error de conexión:", error);
+      throw error;
+    }
+   };

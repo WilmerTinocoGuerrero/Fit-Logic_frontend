@@ -1,64 +1,144 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Row, Col, Card, Button } from 'react-bootstrap';
+import { Container, Row, Col, Card, Button, Form, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import { actualizarPerfil } from '../services/api';  
+import Sidebar from '../components/Sidebar';
 
 const Dashboard = () => {
   const navigate = useNavigate();
   const [nombre, setNombre] = useState('');
   const [rol, setRol] = useState('');
+  const [idUsuario, setIdUsuario] = useState('');
+
+// Leemos si el perfil está completo (convertimos el texto a booleano "true/false")
+  const [perfilCompleto, setPerfilCompleto] = useState(false);
+
+// Estado para el formulario físico
+  const [edad, setEdad] = useState('');
+  const [peso, setPeso] = useState('');
+  const [altura, setAltura] = useState('');
+// Estados para alertas
+  const [alerta, setAlerta] = useState({ tipo: '', mensaje: ''});
+
 
   // Este bloque se ejecuta apenas el usuario intenta entrar a la página
   useEffect(() => {
     const token = localStorage.getItem('token');
-    
     if (!token) {
-      // Si no tiene token, es un intruso. Lo mandamos al login.
-      navigate('/login');
+      navigate('/login', { replace: true });
     } else {
-      // Si tiene token, leemos sus datos para mostrarlos en pantalla
       setNombre(localStorage.getItem('usuario_nombre'));
       setRol(localStorage.getItem('usuario_rol'));
+      setIdUsuario(localStorage.getItem('usuario_id'));
+      
+      // Verificamos el chisme que nos dejó el Login
+      setPerfilCompleto(localStorage.getItem('perfil_completo') === 'true');
     }
   }, [navigate]);
 
-  return (
-    <Container fluid style={{ minHeight: "100vh", backgroundColor: "#0a0a0a", paddingTop: "100px" }}>
-      <Row className="justify-content-center">
-        <Col md={10} lg={8}>
+
+// Función que se dispara al enviar el formulario---------------------------
+  const manejarActualizacion = async (e) => {
+    e.preventDefault();
+    setAlerta({ tipo: '', mensaje: '' });
+    try {
+  const data = await actualizarPerfil(idUsuario, peso, altura, edad);
+      setAlerta({ tipo: 'success', mensaje: data.mensaje });
+      
+      // Si tuvo éxito, actualizamos la memoria para que no le vuelva a salir
+      localStorage.setItem('perfil_completo', 'true');
+      
+      // Esperamos 1.5 segundos y quitamos el formulario oscuro para mostrar el panel blanco
+      setTimeout(() => {
+        setPerfilCompleto(true);
+      }, 1500);
+
+    } catch (error) {
+      setAlerta({ tipo: 'danger', mensaje: error.message });
+    }
+  };
+  // ----------------------------------------
+
+   return (
+    <div style={{ display: 'flex', backgroundColor: '#f4f7fa', minHeight: '100vh' }}>
+      
+      {/* Nuestro nuevo Menú Lateral Fijo */}
+      <Sidebar />
+
+      {/* Contenedor Principal (lo empujamos 260px a la derecha para no tapar el menú) */}
+      <div style={{ marginLeft: '260px', width: '100%', padding: '40px' }}>
+        
+        {/* LÓGICA INTELIGENTE: */}
+        {rol === '3' && !perfilCompleto ? (
           
-          {/* Tarjeta de Bienvenida */}
-          <Card className="shadow-lg border-0 text-white mb-4" style={{ borderRadius: "15px", backgroundColor: "#1a1a1a" }}>
-            <Card.Body className="p-5">
-              <h1 className="fw-bold mb-3">
-                BIENVENIDO, <span style={{ color: "#c6ff00" }}>{nombre.toUpperCase()}</span>
-              </h1>
-              
-              {/* Dependiendo del ROL, mostramos un subtítulo distinto */}
-              {rol === '1' && <h5 className="text-muted">Panel de Administrador Supremo</h5>}
-              {rol === '2' && <h5 className="text-muted">Panel de Instructor / Empleado</h5>}
-              {rol === '3' && <h5 className="text-muted">Panel de Cliente</h5>}
-              
-              <hr style={{ borderColor: "#444" }} />
-              
-              {/* Aquí es donde resolveremos lo de los datos en NULL */}
-              {rol === '3' && (
-                <div className="mt-4 p-4 rounded" style={{ backgroundColor: "#222", borderLeft: "5px solid #c6ff00" }}>
-                  <h4>¡Completa tu Perfil Físico!</h4>
-                  <p className="text-light">
-                    Para poder asignarte tu primera rutina y evaluar si tu plan es Premium o Básico, necesitamos conocer tu peso y altura actual.
-                  </p>
-                  <Button variant="dark" style={{ backgroundColor: "#c6ff00", color: "#000", fontWeight: "bold" }}>
-                    Actualizar mis datos
-                  </Button>
-                </div>
-              )}
+          /* SI ES CLIENTE Y LE FALTAN DATOS: Mostramos el formulario oscuro */
+          <Container>
+            <Row className="justify-content-center mt-5">
+              <Col md={10} lg={8}>
+                <Card className="shadow-lg border-0 text-white" style={{ borderRadius: "15px", backgroundColor: "#1a1a1a" }}>
+                  <Card.Body className="p-5">
+                    <h2 className="fw-bold text-center mb-4">¡Casi listos, <span style={{color: "#c6ff00"}}>{nombre.split(' ')[0]}</span>!</h2>
+                    <div className="p-4 rounded" style={{ backgroundColor: "#222", borderLeft: "5px solid #c6ff00" }}>
+                      <h5 className="mb-3">🏋️‍♂️ Completa tu Perfil Físico</h5>
+                      <p className="text-light mb-4">Para asignarte tu primera rutina, necesitamos estos datos. Solo lo harás una vez.</p>
+                      
+                      {alerta.mensaje && <Alert variant={alerta.tipo}>{alerta.mensaje}</Alert>}
+                      
+                      <Form onSubmit={manejarActualizacion}>
+                        <Row>
+                          <Col md={4}>
+                            <Form.Group className="mb-3">
+                              <Form.Label>Edad</Form.Label>
+                              <Form.Control type="number" className="bg-dark text-white border-secondary" value={edad} onChange={(e) => setEdad(e.target.value)} required />
+                            </Form.Group>
+                          </Col>
+                          <Col md={4}>
+                            <Form.Group className="mb-3">
+                              <Form.Label>Peso (Kg)</Form.Label>
+                              <Form.Control type="number" step="0.1" className="bg-dark text-white border-secondary" value={peso} onChange={(e) => setPeso(e.target.value)} required />
+                            </Form.Group>
+                          </Col>
+                          <Col md={4}>
+                            <Form.Group className="mb-3">
+                              <Form.Label>Altura (cm)</Form.Label>
+                              <Form.Control type="number" className="bg-dark text-white border-secondary" value={altura} onChange={(e) => setAltura(e.target.value)} required />
+                            </Form.Group>
+                          </Col>
+                        </Row>
+                        <Button type="submit" variant="dark" className="mt-2 w-100" style={{ backgroundColor: "#c6ff00", color: "#000", fontWeight: "bold" }}>Guardar y continuar</Button>
+                      </Form>
+                    </div>
+                  </Card.Body>
+                </Card>
+              </Col>
+            </Row>
+          </Container>
+) : (
+          
+          /* si ya tenemos los datos(o es admin/empleado): Mostramos el diseño blanco profesional */
+          <div>
+            <div className="d-flex justify-content-between align-items-center mb-4">
+              <div>
+                <h3 style={{ fontWeight: 'bold', color: '#333' }}>
+                  Fit-Logic / <span style={{ color: '#00c853' }}>Dashboard</span>
+                </h3>
+                <p className="text-muted" style={{ fontWeight: '600' }}>mi control fitness</p>
+              </div>
+              <div style={{ backgroundColor: '#c6ff00', padding: '10px 20px', borderRadius: '5px', fontWeight: 'bold' }}>
+                {rol === '1' ? 'ADMINISTRADOR' : rol === '2' ? 'EMPLEADO' : 'CLIENTE'}
+              </div>
+            </div>
+            
+            <hr style={{ borderColor: '#ddd', marginBottom: '40px' }} />
+            
+            {/* Aquí empezaremos a poner las tarjetas blancas cuadraditas de tu diseño */}
+            <p className="text-muted text-center mt-5">¡El cascarón está listo! Las tarjetas se cargarán aquí.</p>
+          </div>
+          
+        )}
 
-            </Card.Body>
-          </Card>
-
-        </Col>
-      </Row>
-    </Container>
+      </div>
+    </div>
   );
 };
 
