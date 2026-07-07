@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Form, Button, Card, Alert } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import { loginUsuario } from '../services/api'; // <--- importamos a nuestro mensajero
+import { loginUsuario } from '../services/authApi'; // <--- importamos a nuestro mensajero
 
 const Login = () => {
   // Estados para atrapar lo que el usuario escribe

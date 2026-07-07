@@ -1,89 +1,121 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Row, Col, Card, Button, Form, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { actualizarPerfil } from '../services/api';  
+import {
+  actualizarPerfil, obtenerResumenCliente, obtenerRutinaCliente,
+  obtenerProgresoCliente, obtenerAsistenciaCliente, obtenerMembresiaCliente, obtenerPerfilCliente
+} from '../services/clienteApi';
+
+
+// IMPORTAMOS LOS COMPONENTES DE ARQUITECTURA LIMPIA
 import Sidebar from '../components/Sidebar';
+import ResumenCliente from '../components/cliente/ResumenCliente';
+import RutinasCliente from '../components/cliente/RutinasCliente';
+import ProgresoCliente from '../components/cliente/ProgresoCliente';
+import AsistenciaCliente from '../components/cliente/AsistenciaCliente';
+import MembresiaCliente from '../components/cliente/MembresiaCliente';
+import PerfilCliente from '../components/cliente/PerfilCliente';
 
 const Dashboard = () => {
   const navigate = useNavigate();
+
   const [nombre, setNombre] = useState('');
   const [rol, setRol] = useState('');
   const [idUsuario, setIdUsuario] = useState('');
-
-// Leemos si el perfil está completo (convertimos el texto a booleano "true/false")
   const [perfilCompleto, setPerfilCompleto] = useState(false);
+  const [vistaActual, setVistaActual] = useState('resumen');
 
-// Estado para el formulario físico
-  const [edad, setEdad] = useState('');
   const [peso, setPeso] = useState('');
   const [altura, setAltura] = useState('');
-// Estados para alertas
-  const [alerta, setAlerta] = useState({ tipo: '', mensaje: ''});
+  const [edad, setEdad] = useState('');
+  const [alerta, setAlerta] = useState({ tipo: '', mensaje: '' });
 
 
-  // Este bloque se ejecuta apenas el usuario intenta entrar a la página
+  const [resumen, setResumen] = useState({ peso_actual: '0', membresia_tipo: 'Cargando...', membresia_estado: 'Cargando...',
+     asistencias_mes: 0, nivel_rutina: 'Cargando...' });
+
+  const [misRutinas, setMisRutinas] = useState([]);
+  const [miProgreso, setMiProgreso] = useState([]);
+  const [miAsistencia, setMiAsistencia] = useState([]);
+  const [miMembresia, setMiMembresia] = useState({});
+  const [miPerfil, setMiPerfil] = useState(null); // Corregido a null para mayor seguridad
+
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) {
       navigate('/login', { replace: true });
-    } else {
-      setNombre(localStorage.getItem('usuario_nombre'));
-      setRol(localStorage.getItem('usuario_rol'));
-      setIdUsuario(localStorage.getItem('usuario_id'));
-      
-      // Verificamos el chisme que nos dejó el Login
-      setPerfilCompleto(localStorage.getItem('perfil_completo') === 'true');
+      return;
+    }
+    setNombre(localStorage.getItem('usuario_nombre'));
+    const rolActual = localStorage.getItem('usuario_rol');
+    const idActual = localStorage.getItem('usuario_id');
+    const isCompleto = localStorage.getItem('perfil_completo') === 'true';
+
+    setRol(rolActual);
+    setIdUsuario(idActual);
+    setPerfilCompleto(isCompleto);
+
+    if (rolActual === '3' && isCompleto) {
+      cargarDatosDashboard(idActual);
+      cargarRutinas(idActual);
+      cargarProgreso(idActual);
+      cargarAsistencia(idActual);
+      cargarMembresia(idActual);
+      cargarPerfil(idActual);
     }
   }, [navigate]);
 
+  const cargarDatosDashboard = async (id) => { try { const data = await obtenerResumenCliente(id); 
+    setResumen(data); } catch (error) { 
+      console.error(error); } };
+  const cargarRutinas = async (id) => { try { const data = await obtenerRutinaCliente(id);
+    setMisRutinas(data); } catch (error) { 
+      console.error(error); } };
+  const cargarProgreso = async (id) => { try { const data = await obtenerProgresoCliente(id); 
+    setMiProgreso(data); } catch (error) { 
+      console.error(error); } };
+  const cargarAsistencia = async (id) => { try { const data = await obtenerAsistenciaCliente(id); 
+    setMiAsistencia(data); } catch (error) { 
+      console.error(error); } };
+  const cargarMembresia = async (id) => { try { const data = await obtenerMembresiaCliente(id); 
+    setMiMembresia(data); } catch (error) { 
+      console.error(error); } };
+  const cargarPerfil = async (id) => { try { const data = await obtenerPerfilCliente(id); 
+    setMiPerfil(data); } catch (error) { 
+      console.error(error); } };
 
-// Función que se dispara al enviar el formulario---------------------------
   const manejarActualizacion = async (e) => {
     e.preventDefault();
     setAlerta({ tipo: '', mensaje: '' });
     try {
-  const data = await actualizarPerfil(idUsuario, peso, altura, edad);
+      const data = await actualizarPerfil(idUsuario, peso, altura, edad);
       setAlerta({ tipo: 'success', mensaje: data.mensaje });
-      
-      // Si tuvo éxito, actualizamos la memoria para que no le vuelva a salir
       localStorage.setItem('perfil_completo', 'true');
-      
-      // Esperamos 1.5 segundos y quitamos el formulario oscuro para mostrar el panel blanco
-      setTimeout(() => {
-        setPerfilCompleto(true);
-      }, 1500);
-
+      setTimeout(() => { setPerfilCompleto(true); cargarDatosDashboard(idUsuario); }, 1500);
     } catch (error) {
       setAlerta({ tipo: 'danger', mensaje: error.message });
     }
   };
-  // ----------------------------------------
 
-   return (
-    <div style={{ display: 'flex', backgroundColor: '#f4f7fa', minHeight: '100vh' }}>
-      
-      {/* Nuestro nuevo Menú Lateral Fijo */}
-      <Sidebar />
+  return (
+    <div style={{ display: 'flex', backgroundColor: '#f8f9fa', minHeight: '100vh' }}>
+      <Sidebar cambiarVista={setVistaActual} vistaActual={vistaActual} />
 
-      {/* Contenedor Principal (lo empujamos 260px a la derecha para no tapar el menú) */}
       <div style={{ marginLeft: '260px', width: '100%', padding: '40px' }}>
-        
-        {/* LÓGICA INTELIGENTE: */}
         {rol === '3' && !perfilCompleto ? (
+          /* ========================================================= */
+          /* FORMULARIO DE PRIMER INGRESO                              */
           
-          /* SI ES CLIENTE Y LE FALTAN DATOS: Mostramos el formulario oscuro */
           <Container>
             <Row className="justify-content-center mt-5">
               <Col md={10} lg={8}>
                 <Card className="shadow-lg border-0 text-white" style={{ borderRadius: "15px", backgroundColor: "#1a1a1a" }}>
                   <Card.Body className="p-5">
-                    <h2 className="fw-bold text-center mb-4">¡Casi listos, <span style={{color: "#c6ff00"}}>{nombre.split(' ')[0]}</span>!</h2>
+                    <h2 className="fw-bold text-center mb-4">¡Casi listos, <span style={{ color: "#c6ff00" }}>{nombre.split(' ')[0]}</span>!</h2>
                     <div className="p-4 rounded" style={{ backgroundColor: "#222", borderLeft: "5px solid #c6ff00" }}>
                       <h5 className="mb-3">🏋️‍♂️ Completa tu Perfil Físico</h5>
                       <p className="text-light mb-4">Para asignarte tu primera rutina, necesitamos estos datos. Solo lo harás una vez.</p>
-                      
                       {alerta.mensaje && <Alert variant={alerta.tipo}>{alerta.mensaje}</Alert>}
-                      
                       <Form onSubmit={manejarActualizacion}>
                         <Row>
                           <Col md={4}>
@@ -113,30 +145,51 @@ const Dashboard = () => {
               </Col>
             </Row>
           </Container>
-) : (
-          
-          /* si ya tenemos los datos(o es admin/empleado): Mostramos el diseño blanco profesional */
-          <div>
+        ) : (
+          /* ========================================================= */
+          /* PANEL MODULAR DEL CLIENTE (Arquitectura limpia)           */
+
+          <Container fluid>
+            {/* CABECERA DINÁMICA */}
             <div className="d-flex justify-content-between align-items-center mb-4">
               <div>
                 <h3 style={{ fontWeight: 'bold', color: '#333' }}>
-                  Fit-Logic / <span style={{ color: '#00c853' }}>Dashboard</span>
+                  Fit-Logic /{' '}
+                  <span style={{ color: '#00c853' }}>
+                    {vistaActual === 'resumen' && 'Dashboard'}
+                    {vistaActual === 'rutinas' && 'Mis Rutinas'}
+                    {vistaActual === 'progreso' && 'Mi Progreso'}
+                    {vistaActual === 'asistencia' && 'Mi Asistencia'}
+                    {vistaActual === 'membresia' && 'Mi Membresía'}
+                    {vistaActual === 'perfil' && 'Mi Perfil'}
+                  </span>
                 </h3>
-                <p className="text-muted" style={{ fontWeight: '600' }}>mi control fitness</p>
+                <p className="text-muted" style={{ fontWeight: '600' }}>
+                  {vistaActual === 'resumen' && 'El éxito es la suma de pequeños esfuerzos diarios. ¡Bienvenido de vuelta!'}
+                  {vistaActual === 'rutinas' && 'Estos serán tus ejercicios que te acompañarán durante todo este recorrido de entrenamiento. ¡A darle con todo!'}
+                  {vistaActual === 'progreso' && 'Los números en la báscula solo cuentan una parte de la historia. ¡Mira lo fuerte que te has vuelto!'}
+                  {vistaActual === 'asistencia' && 'La disciplina vence al talento. ¡Sigue sumando esos días perfectos!'}
+                  {vistaActual === 'membresia' && 'Tu suscripción al éxito no expira mientras no te rindas. ¡Sigue construyendo tu legado!'}
+                  {vistaActual === 'perfil' && 'Tu nombre, tus metas, tus reglas. Nadie va a entrenar por ti.'}
+                </p>
               </div>
-              <div style={{ backgroundColor: '#c6ff00', padding: '10px 20px', borderRadius: '5px', fontWeight: 'bold' }}>
+              <div style={{ backgroundColor: '#c6ff00', padding: '10px 20px', borderRadius: '5px', fontWeight: 'bold', color: '#000' }}>
                 {rol === '1' ? 'ADMINISTRADOR' : rol === '2' ? 'EMPLEADO' : 'CLIENTE'}
               </div>
             </div>
-            
-            <hr style={{ borderColor: '#ddd', marginBottom: '40px' }} />
-            
-            {/* Aquí empezaremos a poner las tarjetas blancas cuadraditas de tu diseño */}
-            <p className="text-muted text-center mt-5">¡El cascarón está listo! Las tarjetas se cargarán aquí.</p>
-          </div>
-          
-        )}
 
+            <hr style={{ borderColor: '#ddd', marginBottom: '40px' }} />
+
+            {/* RENDERIZADO DE COMPONENTES */}
+            {rol === '3' && vistaActual === 'resumen' && <ResumenCliente resumen={resumen} />}
+            {rol === '3' && vistaActual === 'rutinas' && <RutinasCliente misRutinas={misRutinas} />}
+            {rol === '3' && vistaActual === 'progreso' && <ProgresoCliente miProgreso={miProgreso} />}
+            {rol === '3' && vistaActual === 'asistencia' && <AsistenciaCliente miAsistencia={miAsistencia} />}
+            {rol === '3' && vistaActual === 'membresia' && <MembresiaCliente miMembresia={miMembresia} />}
+            {rol === '3' && vistaActual === 'perfil' && miPerfil && <PerfilCliente miPerfil={miPerfil} />}
+
+          </Container>
+        )}
       </div>
     </div>
   );

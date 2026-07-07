@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Form, Button, Card, Alert } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import { registrarUsuario } from '../services/api'; // importamos el nuevo mensajero 
+import { registrarUsuario } from '../services/authApi'; // importamos el nuevo mensajero 
 
 
 const Registro = () => {
