@@ -6,7 +6,6 @@ import {
   obtenerProgresoCliente, obtenerAsistenciaCliente, obtenerMembresiaCliente, obtenerPerfilCliente
 } from '../services/clienteApi';
 
-
 // IMPORTAMOS LOS COMPONENTES DE ARQUITECTURA LIMPIA
 import Sidebar from '../components/Sidebar';
 import ResumenCliente from '../components/cliente/ResumenCliente';
@@ -16,6 +15,7 @@ import AsistenciaCliente from '../components/cliente/AsistenciaCliente';
 import MembresiaCliente from '../components/cliente/MembresiaCliente';
 import PerfilCliente from '../components/cliente/PerfilCliente';
 import EmpleadosAdmin from '../components/admin/EmpleadosAdmin';
+import ClientesAdmin from '../components/admin/ClientesAdmin'; // <-- 1. IMPORTAMOS TU NUEVO COMPONENTE
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -31,7 +31,6 @@ const Dashboard = () => {
   const [edad, setEdad] = useState('');
   const [alerta, setAlerta] = useState({ tipo: '', mensaje: '' });
 
-
   const [resumen, setResumen] = useState({ peso_actual: '0', membresia_tipo: 'Cargando...', membresia_estado: 'Cargando...',
      asistencias_mes: 0, nivel_rutina: 'Cargando...' });
 
@@ -39,7 +38,7 @@ const Dashboard = () => {
   const [miProgreso, setMiProgreso] = useState([]);
   const [miAsistencia, setMiAsistencia] = useState([]);
   const [miMembresia, setMiMembresia] = useState({});
-  const [miPerfil, setMiPerfil] = useState(null); // Corregido a null para mayor seguridad
+  const [miPerfil, setMiPerfil] = useState(null); 
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -67,23 +66,17 @@ const Dashboard = () => {
   }, [navigate]);
 
   const cargarDatosDashboard = async (id) => { try { const data = await obtenerResumenCliente(id); 
-    setResumen(data); } catch (error) { 
-      console.error(error); } };
+    setResumen(data); } catch (error) { console.error(error); } };
   const cargarRutinas = async (id) => { try { const data = await obtenerRutinaCliente(id);
-    setMisRutinas(data); } catch (error) { 
-      console.error(error); } };
+    setMisRutinas(data); } catch (error) { console.error(error); } };
   const cargarProgreso = async (id) => { try { const data = await obtenerProgresoCliente(id); 
-    setMiProgreso(data); } catch (error) { 
-      console.error(error); } };
+    setMiProgreso(data); } catch (error) { console.error(error); } };
   const cargarAsistencia = async (id) => { try { const data = await obtenerAsistenciaCliente(id); 
-    setMiAsistencia(data); } catch (error) { 
-      console.error(error); } };
+    setMiAsistencia(data); } catch (error) { console.error(error); } };
   const cargarMembresia = async (id) => { try { const data = await obtenerMembresiaCliente(id); 
-    setMiMembresia(data); } catch (error) { 
-      console.error(error); } };
+    setMiMembresia(data); } catch (error) { console.error(error); } };
   const cargarPerfil = async (id) => { try { const data = await obtenerPerfilCliente(id); 
-    setMiPerfil(data); } catch (error) { 
-      console.error(error); } };
+    setMiPerfil(data); } catch (error) { console.error(error); } };
 
   const manejarActualizacion = async (e) => {
     e.preventDefault();
@@ -148,7 +141,7 @@ const Dashboard = () => {
           </Container>
         ) : (
           /* ========================================================= */
-          /* PANEL MODULAR DEL CLIENTE (Arquitectura limpia)           */
+          /* PANEL MODULAR DEL CLIENTE / PERSONAL                      */
 
           <Container fluid>
             {/* CABECERA DINÁMICA */}
@@ -158,6 +151,8 @@ const Dashboard = () => {
                   Fit-Logic /{' '}
                   <span style={{ color: '#00c853' }}>
                     {vistaActual === 'resumen' && 'Dashboard'}
+                    {vistaActual === 'clientes' && 'Gestión de Clientes'}
+                    {vistaActual === 'empleados' && 'Mis Empleados'}
                     {vistaActual === 'rutinas' && 'Mis Rutinas'}
                     {vistaActual === 'progreso' && 'Mi Progreso'}
                     {vistaActual === 'asistencia' && 'Mi Asistencia'}
@@ -167,6 +162,8 @@ const Dashboard = () => {
                 </h3>
                 <p className="text-muted" style={{ fontWeight: '600' }}>
                   {vistaActual === 'resumen' && 'El éxito es la suma de pequeños esfuerzos diarios. ¡Bienvenido de vuelta!'}
+                  {vistaActual === 'clientes' && 'Administra, registra y actualiza los expedientes antropométricos y credenciales de los clientes.'}
+                  {vistaActual === 'empleados' && 'Gestiona los accesos, roles y el personal interno del gimnasio.'}
                   {vistaActual === 'rutinas' && 'Estos serán tus ejercicios que te acompañarán durante todo este recorrido de entrenamiento. ¡A darle con todo!'}
                   {vistaActual === 'progreso' && 'Los números en la báscula solo cuentan una parte de la historia. ¡Mira lo fuerte que te has vuelto!'}
                   {vistaActual === 'asistencia' && 'La disciplina vence al talento. ¡Sigue sumando esos días perfectos!'}
@@ -182,6 +179,7 @@ const Dashboard = () => {
             <hr style={{ borderColor: '#ddd', marginBottom: '40px' }} />
 
             {/* RENDERIZADO DE COMPONENTES */}
+            {/* Vistas específicas del Cliente */}
             {rol === '3' && vistaActual === 'resumen' && <ResumenCliente resumen={resumen} />}
             {rol === '3' && vistaActual === 'rutinas' && <RutinasCliente misRutinas={misRutinas} />}
             {rol === '3' && vistaActual === 'progreso' && <ProgresoCliente miProgreso={miProgreso} />}
@@ -189,8 +187,10 @@ const Dashboard = () => {
             {rol === '3' && vistaActual === 'membresia' && <MembresiaCliente miMembresia={miMembresia} />}
             {rol === '3' && vistaActual === 'perfil' && miPerfil && <PerfilCliente miPerfil={miPerfil} />}
 
+            {/* Vistas compartidas para Admin y Empleado */}
+            {(rol === '1' || rol === '2') && vistaActual === 'clientes' && <ClientesAdmin />}
 
-             {/* aqui ponemos del administrador "ADMIN" (lo llamamos de la clase "EmpleadosAdmin") */}
+            {/* Vista exclusiva para el Administrador */}
             {rol === '1' && vistaActual === 'empleados' && <EmpleadosAdmin />}
           </Container>
         )}
