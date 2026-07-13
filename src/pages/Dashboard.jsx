@@ -15,6 +15,7 @@ import ProgresoCliente from '../components/cliente/ProgresoCliente';
 import AsistenciaCliente from '../components/cliente/AsistenciaCliente';
 import MembresiaCliente from '../components/cliente/MembresiaCliente';
 import PerfilCliente from '../components/cliente/PerfilCliente';
+import EmpleadosAdmin from '../components/admin/EmpleadosAdmin';
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -99,7 +100,7 @@ const Dashboard = () => {
 
   return (
     <div style={{ display: 'flex', backgroundColor: '#f8f9fa', minHeight: '100vh' }}>
-      <Sidebar cambiarVista={setVistaActual} vistaActual={vistaActual} />
+      <Sidebar cambiarVista={setVistaActual} vistaActual={vistaActual} rol={rol} />
 
       <div style={{ marginLeft: '260px', width: '100%', padding: '40px' }}>
         {rol === '3' && !perfilCompleto ? (
@@ -188,6 +189,9 @@ const Dashboard = () => {
             {rol === '3' && vistaActual === 'membresia' && <MembresiaCliente miMembresia={miMembresia} />}
             {rol === '3' && vistaActual === 'perfil' && miPerfil && <PerfilCliente miPerfil={miPerfil} />}
 
+
+             {/* aqui ponemos del administrador "ADMIN" (lo llamamos de la clase "EmpleadosAdmin") */}
+            {rol === '1' && vistaActual === 'empleados' && <EmpleadosAdmin />}
           </Container>
         )}
       </div>

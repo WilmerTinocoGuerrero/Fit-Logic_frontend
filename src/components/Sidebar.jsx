@@ -1,8 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-
-const Sidebar = ({ cambiarVista , vistaActual}) => {
+const Sidebar = ({ cambiarVista, vistaActual, rol }) => {
   const navigate = useNavigate();
   const nombreUsuario = localStorage.getItem('usuario_nombre') || 'Usuario';
   const inicial = nombreUsuario.charAt(0).toUpperCase();
@@ -13,7 +12,7 @@ const Sidebar = ({ cambiarVista , vistaActual}) => {
     window.location.reload();
   };
 
-  // 2. Función inteligente para pintar el botón activo de negro y los demás de gris
+  // Función inteligente para pintar el botón activo de negro y los demás de gris
   const obtenerEstilo = (nombreVista) => {
     return {
       textDecoration: 'none',
@@ -22,12 +21,11 @@ const Sidebar = ({ cambiarVista , vistaActual}) => {
       display: 'flex',
       alignItems: 'center',
       gap: '10px',
-      cursor: 'pointer' // Cambiamos la flecha por la manito de clic
+      cursor: 'pointer' 
     };
   };
 
-
-return (
+  return (
     <div style={{ 
       width: '260px', height: '100vh', backgroundColor: '#ffffff', 
       borderRight: '1px solid #eaeaea', display: 'flex', flexDirection: 'column', 
@@ -39,37 +37,102 @@ return (
 
       <ul style={{ listStyle: 'none', padding: 0, margin: 0, flexGrow: 1 }}>
         
-        {/* 3. Reemplazamos los <Link> por <span> con eventos onClick */}
-        <li style={{ marginBottom: '20px' }}>
-          <span onClick={() => cambiarVista('resumen')} style={obtenerEstilo('resumen')}>
-            🪟 Dashboard
-          </span>
-        </li>
-        <li style={{ marginBottom: '20px' }}>
-          <span onClick={() => cambiarVista('rutinas')} style={obtenerEstilo('rutinas')}>
-            🏷️ Mi Rutina
-          </span>
-        </li>
-        <li style={{ marginBottom: '20px' }}>
-          <span onClick={() => cambiarVista('progreso')} style={obtenerEstilo('progreso')}>
-            📦 Mi Progreso
-          </span>
-        </li>
-        <li style={{ marginBottom: '20px' }}>
-          <span onClick={() => cambiarVista('asistencia')} style={obtenerEstilo('asistencia')}>
-            🚚 Mi Asistencia
-          </span>
-        </li>
-        <li style={{ marginBottom: '20px' }}>
-          <span onClick={() => cambiarVista('membresia')} style={obtenerEstilo('membresia')}>
-            👥 Mi Membresía
-          </span>
-        </li>
-        <li style={{ marginBottom: '20px' }}>
-          <span onClick={() => cambiarVista('perfil')} style={obtenerEstilo('perfil')}>
-            ⚙️ Mi Perfil
-          </span>
-        </li>
+        {/* ======================================================== */}
+        {/* 1. MENÚ PARA CLIENTES (rol === '3')                      */}
+        {/* ======================================================== */}
+        {rol === '3' && (
+          <>
+            <li style={{ marginBottom: '20px' }}>
+              <span onClick={() => cambiarVista('resumen')} style={obtenerEstilo('resumen')}>
+                🪟 Dashboard
+              </span>
+            </li>
+            <li style={{ marginBottom: '20px' }}>
+              <span onClick={() => cambiarVista('rutinas')} style={obtenerEstilo('rutinas')}>
+                🏷️ Mi Rutina
+              </span>
+            </li>
+            <li style={{ marginBottom: '20px' }}>
+              <span onClick={() => cambiarVista('progreso')} style={obtenerEstilo('progreso')}>
+                📦 Mi Progreso
+              </span>
+            </li>
+            <li style={{ marginBottom: '20px' }}>
+              <span onClick={() => cambiarVista('asistencia')} style={obtenerEstilo('asistencia')}>
+                🚚 Mi Asistencia
+              </span>
+            </li>
+            <li style={{ marginBottom: '20px' }}>
+              <span onClick={() => cambiarVista('membresia')} style={obtenerEstilo('membresia')}>
+                👥 Mi Membresía
+              </span>
+            </li>
+            <li style={{ marginBottom: '20px' }}>
+              <span onClick={() => cambiarVista('perfil')} style={obtenerEstilo('perfil')}>
+                ⚙️ Mi Perfil
+              </span>
+            </li>
+          </>
+        )}
+
+        {/* ======================================================== */}
+        {/* 2. MENÚ PARA ADMIN (1) Y EMPLEADO (2)                    */}
+        {/* ======================================================== */}
+        {(rol === '1' || rol === '2') && (
+          <>
+            <li style={{ marginBottom: '20px' }}>
+              <span onClick={() => cambiarVista('resumen')} style={obtenerEstilo('resumen')}>
+                🪟 Dashboard Operativo
+              </span>
+            </li>
+            
+            <li style={{ marginBottom: '20px' }}>
+              <span onClick={() => cambiarVista('clientes')} style={obtenerEstilo('clientes')}>
+                👥 Clientes
+              </span>
+            </li>
+
+            {/* OJO AQUÍ: Este botón solo aparece si el rol es exactamente '1' (ADMIN) */}
+            {rol === '1' && (
+              <li style={{ marginBottom: '20px' }}>
+                <span onClick={() => cambiarVista('empleados')} style={obtenerEstilo('empleados')}>
+                  👨‍💼 Empleados
+                </span>
+              </li>
+            )}
+
+            <li style={{ marginBottom: '20px' }}>
+              <span onClick={() => cambiarVista('rutinas')} style={obtenerEstilo('rutinas')}>
+                🏷️ Rutinas
+              </span>
+            </li>
+            
+            <li style={{ marginBottom: '20px' }}>
+              <span onClick={() => cambiarVista('progreso')} style={obtenerEstilo('progreso')}>
+                📦 Progreso
+              </span>
+            </li>
+            
+            <li style={{ marginBottom: '20px' }}>
+              <span onClick={() => cambiarVista('asistencia')} style={obtenerEstilo('asistencia')}>
+                🚚 Asistencias
+              </span>
+            </li>
+            
+            <li style={{ marginBottom: '20px' }}>
+              <span onClick={() => cambiarVista('membresia')} style={obtenerEstilo('membresia')}>
+                🎟️ Membresías
+              </span>
+            </li>
+            
+            <li style={{ marginBottom: '20px' }}>
+              <span onClick={() => cambiarVista('pagos')} style={obtenerEstilo('pagos')}>
+                💳 Pagos
+              </span>
+            </li>
+          </>
+        )}
+        
       </ul>
 
       {/* Sección inferior del usuario (Se mantiene intacta) */}
