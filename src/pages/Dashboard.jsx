@@ -15,7 +15,8 @@ import AsistenciaCliente from '../components/cliente/AsistenciaCliente';
 import MembresiaCliente from '../components/cliente/MembresiaCliente';
 import PerfilCliente from '../components/cliente/PerfilCliente';
 import EmpleadosAdmin from '../components/admin/EmpleadosAdmin';
-import ClientesAdmin from '../components/admin/ClientesAdmin'; // <-- 1. IMPORTAMOS TU NUEVO COMPONENTE
+import ClientesAdmin from '../components/admin/ClientesAdmin';
+import MembresiasAdmin from '../components/admin/MembresiasAdmin'; // <-- IMPORTAMOS TU NUEVO PANEL
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -156,7 +157,7 @@ const Dashboard = () => {
                     {vistaActual === 'rutinas' && 'Mis Rutinas'}
                     {vistaActual === 'progreso' && 'Mi Progreso'}
                     {vistaActual === 'asistencia' && 'Mi Asistencia'}
-                    {vistaActual === 'membresia' && 'Mi Membresía'}
+                    {vistaActual === 'membresia' && (rol === '3' ? 'Mi Membresía' : 'Gestión de Membresías')}
                     {vistaActual === 'perfil' && 'Mi Perfil'}
                   </span>
                 </h3>
@@ -167,7 +168,9 @@ const Dashboard = () => {
                   {vistaActual === 'rutinas' && 'Estos serán tus ejercicios que te acompañarán durante todo este recorrido de entrenamiento. ¡A darle con todo!'}
                   {vistaActual === 'progreso' && 'Los números en la báscula solo cuentan una parte de la historia. ¡Mira lo fuerte que te has vuelto!'}
                   {vistaActual === 'asistencia' && 'La disciplina vence al talento. ¡Sigue sumando esos días perfectos!'}
-                  {vistaActual === 'membresia' && 'Tu suscripción al éxito no expira mientras no te rindas. ¡Sigue construyendo tu legado!'}
+                  {vistaActual === 'membresia' && (rol === '3' 
+                    ? 'Tu suscripción al éxito no expira mientras no te rindas. ¡Sigue construyendo tu legado!' 
+                    : 'Modifica tipos de planes, actualiza estados de vigencia y extiende membresías de clientes.')}
                   {vistaActual === 'perfil' && 'Tu nombre, tus metas, tus reglas. Nadie va a entrenar por ti.'}
                 </p>
               </div>
@@ -189,6 +192,7 @@ const Dashboard = () => {
 
             {/* Vistas compartidas para Admin y Empleado */}
             {(rol === '1' || rol === '2') && vistaActual === 'clientes' && <ClientesAdmin />}
+            {(rol === '1' || rol === '2') && vistaActual === 'membresia' && <MembresiasAdmin />} {/* <-- RENDERIZAMOS EL PANEL DE GESTIÓN */}
 
             {/* Vista exclusiva para el Administrador */}
             {rol === '1' && vistaActual === 'empleados' && <EmpleadosAdmin />}
