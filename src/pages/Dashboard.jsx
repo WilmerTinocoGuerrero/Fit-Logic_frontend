@@ -16,7 +16,11 @@ import MembresiaCliente from '../components/cliente/MembresiaCliente';
 import PerfilCliente from '../components/cliente/PerfilCliente';
 import EmpleadosAdmin from '../components/admin/EmpleadosAdmin';
 import ClientesAdmin from '../components/admin/ClientesAdmin';
-import MembresiasAdmin from '../components/admin/MembresiasAdmin'; // <-- IMPORTAMOS TU NUEVO PANEL
+import MembresiasAdmin from '../components/admin/MembresiasAdmin'; 
+import RutinasAdmin from '../components/admin/RutinasAdmin'; 
+import AsistenciasAdmin from '../components/admin/AsistenciasAdmin'; 
+import PagosAdmin from '../components/admin/PagosAdmin'; 
+import ProgresoAdmin from '../components/admin/ProgresoAdmin'; // <-- IMPORTAMOS TU NUEVA VISTA
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -32,8 +36,13 @@ const Dashboard = () => {
   const [edad, setEdad] = useState('');
   const [alerta, setAlerta] = useState({ tipo: '', mensaje: '' });
 
-  const [resumen, setResumen] = useState({ peso_actual: '0', membresia_tipo: 'Cargando...', membresia_estado: 'Cargando...',
-     asistencias_mes: 0, nivel_rutina: 'Cargando...' });
+  const [resumen, setResumen] = useState({ 
+    peso_actual: '0', 
+    membresia_tipo: 'Cargando...', 
+    membresia_estado: 'Cargando...',
+    asistencias_mes: 0, 
+    nivel_rutina: 'Cargando...' 
+  });
 
   const [misRutinas, setMisRutinas] = useState([]);
   const [miProgreso, setMiProgreso] = useState([]);
@@ -66,18 +75,12 @@ const Dashboard = () => {
     }
   }, [navigate]);
 
-  const cargarDatosDashboard = async (id) => { try { const data = await obtenerResumenCliente(id); 
-    setResumen(data); } catch (error) { console.error(error); } };
-  const cargarRutinas = async (id) => { try { const data = await obtenerRutinaCliente(id);
-    setMisRutinas(data); } catch (error) { console.error(error); } };
-  const cargarProgreso = async (id) => { try { const data = await obtenerProgresoCliente(id); 
-    setMiProgreso(data); } catch (error) { console.error(error); } };
-  const cargarAsistencia = async (id) => { try { const data = await obtenerAsistenciaCliente(id); 
-    setMiAsistencia(data); } catch (error) { console.error(error); } };
-  const cargarMembresia = async (id) => { try { const data = await obtenerMembresiaCliente(id); 
-    setMiMembresia(data); } catch (error) { console.error(error); } };
-  const cargarPerfil = async (id) => { try { const data = await obtenerPerfilCliente(id); 
-    setMiPerfil(data); } catch (error) { console.error(error); } };
+  const cargarDatosDashboard = async (id) => { try { const data = await obtenerResumenCliente(id); setResumen(data); } catch (error) { console.error(error); } };
+  const cargarRutinas = async (id) => { try { const data = await obtenerRutinaCliente(id); setMisRutinas(data); } catch (error) { console.error(error); } };
+  const cargarProgreso = async (id) => { try { const data = await obtenerProgresoCliente(id); setMiProgreso(data); } catch (error) { console.error(error); } };
+  const cargarAsistencia = async (id) => { try { const data = await obtenerAsistenciaCliente(id); setMiAsistencia(data); } catch (error) { console.error(error); } };
+  const cargarMembresia = async (id) => { try { const data = await obtenerMembresiaCliente(id); setMiMembresia(data); } catch (error) { console.error(error); } };
+  const cargarPerfil = async (id) => { try { const data = await obtenerPerfilCliente(id); setMiPerfil(data); } catch (error) { console.error(error); } };
 
   const manejarActualizacion = async (e) => {
     e.preventDefault();
@@ -100,7 +103,7 @@ const Dashboard = () => {
         {rol === '3' && !perfilCompleto ? (
           /* ========================================================= */
           /* FORMULARIO DE PRIMER INGRESO                              */
-          
+          /* ========================================================= */
           <Container>
             <Row className="justify-content-center mt-5">
               <Col md={10} lg={8}>
@@ -143,7 +146,7 @@ const Dashboard = () => {
         ) : (
           /* ========================================================= */
           /* PANEL MODULAR DEL CLIENTE / PERSONAL                      */
-
+          /* ========================================================= */
           <Container fluid>
             {/* CABECERA DINÁMICA */}
             <div className="d-flex justify-content-between align-items-center mb-4">
@@ -155,10 +158,11 @@ const Dashboard = () => {
                     {vistaActual === 'clientes' && 'Gestión de Clientes'}
                     {vistaActual === 'empleados' && 'Mis Empleados'}
                     {vistaActual === 'rutinas' && 'Mis Rutinas'}
-                    {vistaActual === 'progreso' && 'Mi Progreso'}
-                    {vistaActual === 'asistencia' && 'Mi Asistencia'}
+                    {vistaActual === 'progreso' && (rol === '3' ? 'Mi Progreso' : 'Evolución de Clientes')}
+                    {vistaActual === 'asistencia' && (rol === '3' ? 'Mi Asistencia' : 'Gestión de Asistencias')}
                     {vistaActual === 'membresia' && (rol === '3' ? 'Mi Membresía' : 'Gestión de Membresías')}
                     {vistaActual === 'perfil' && 'Mi Perfil'}
+                    {vistaActual === 'pagos' && 'Gestión de Pagos'}
                   </span>
                 </h3>
                 <p className="text-muted" style={{ fontWeight: '600' }}>
@@ -166,12 +170,17 @@ const Dashboard = () => {
                   {vistaActual === 'clientes' && 'Administra, registra y actualiza los expedientes antropométricos y credenciales de los clientes.'}
                   {vistaActual === 'empleados' && 'Gestiona los accesos, roles y el personal interno del gimnasio.'}
                   {vistaActual === 'rutinas' && 'Estos serán tus ejercicios que te acompañarán durante todo este recorrido de entrenamiento. ¡A darle con todo!'}
-                  {vistaActual === 'progreso' && 'Los números en la báscula solo cuentan una parte de la historia. ¡Mira lo fuerte que te has vuelto!'}
-                  {vistaActual === 'asistencia' && 'La disciplina vence al talento. ¡Sigue sumando esos días perfectos!'}
+                  {vistaActual === 'progreso' && (rol === '3' 
+                    ? 'Los números en la báscula solo cuentan una parte de la historia. ¡Mira lo fuerte que te has vuelto!' 
+                    : 'Controla el historial de peso corporal, porcentaje graso y evolución antropométrica de cada cliente.')}
+                  {vistaActual === 'asistencia' && (rol === '3' 
+                    ? 'La disciplina vence al talento. ¡Sigue sumando esos días perfectos!' 
+                    : 'Historial de ingresos y control de accesos manuales al establecimiento.')}
                   {vistaActual === 'membresia' && (rol === '3' 
                     ? 'Tu suscripción al éxito no expira mientras no te rindas. ¡Sigue construyendo tu legado!' 
                     : 'Modifica tipos de planes, actualiza estados de vigencia y extiende membresías de clientes.')}
                   {vistaActual === 'perfil' && 'Tu nombre, tus metas, tus reglas. Nadie va a entrenar por ti.'}
+                  {vistaActual === 'pagos' && 'Control de transacciones, cobros de planes de entrenamiento y arqueo de caja general.'}
                 </p>
               </div>
               <div style={{ backgroundColor: '#c6ff00', padding: '10px 20px', borderRadius: '5px', fontWeight: 'bold', color: '#000' }}>
@@ -192,7 +201,11 @@ const Dashboard = () => {
 
             {/* Vistas compartidas para Admin y Empleado */}
             {(rol === '1' || rol === '2') && vistaActual === 'clientes' && <ClientesAdmin />}
-            {(rol === '1' || rol === '2') && vistaActual === 'membresia' && <MembresiasAdmin />} {/* <-- RENDERIZAMOS EL PANEL DE GESTIÓN */}
+            {(rol === '1' || rol === '2') && vistaActual === 'membresia' && <MembresiasAdmin />}
+            {(rol === '1' || rol === '2') && vistaActual === 'rutinas' && <RutinasAdmin />}
+            {(rol === '1' || rol === '2') && vistaActual === 'asistencia' && <AsistenciasAdmin />}
+            {(rol === '1' || rol === '2') && vistaActual === 'pagos' && <PagosAdmin />}
+            {(rol === '1' || rol === '2') && vistaActual === 'progreso' && <ProgresoAdmin />} {/* <-- SE RENDERIZA EL NUEVO PANEL */}
 
             {/* Vista exclusiva para el Administrador */}
             {rol === '1' && vistaActual === 'empleados' && <EmpleadosAdmin />}
