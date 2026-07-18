@@ -20,7 +20,8 @@ import MembresiasAdmin from '../components/admin/MembresiasAdmin';
 import RutinasAdmin from '../components/admin/RutinasAdmin'; 
 import AsistenciasAdmin from '../components/admin/AsistenciasAdmin'; 
 import PagosAdmin from '../components/admin/PagosAdmin'; 
-import ProgresoAdmin from '../components/admin/ProgresoAdmin'; // <-- IMPORTAMOS TU NUEVA VISTA
+import ProgresoAdmin from '../components/admin/ProgresoAdmin'; 
+import ResumenAdmin from '../components/admin/ResumenAdmin'; // <-- IMPORTAMOS EL NUEVO COMPONENTE ESTADÍSTICO
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -179,7 +180,7 @@ const Dashboard = () => {
                   {vistaActual === 'membresia' && (rol === '3' 
                     ? 'Tu suscripción al éxito no expira mientras no te rindas. ¡Sigue construyendo tu legado!' 
                     : 'Modifica tipos de planes, actualiza estados de vigencia y extiende membresías de clientes.')}
-                  {vistaActual === 'perfil' && 'Tu nombre, tus metas, tus reglas. Nadie va a entrenar por ti.'}
+                  {vistaActual === 'perfil' && 'Tu nombre, tus metas, tus rules. Nadie va a entrenar por ti.'}
                   {vistaActual === 'pagos' && 'Control de transacciones, cobros de planes de entrenamiento y arqueo de caja general.'}
                 </p>
               </div>
@@ -199,18 +200,21 @@ const Dashboard = () => {
             {rol === '3' && vistaActual === 'membresia' && <MembresiaCliente miMembresia={miMembresia} />}
             {rol === '3' && vistaActual === 'perfil' && miPerfil && <PerfilCliente miPerfil={miPerfil} />}
 
+
             {/* Vistas compartidas para Admin y Empleado */}
+            {(rol === '1' || rol === '2') && vistaActual === 'resumen' && <ResumenAdmin rol={rol} />} {/* <-- COMPONENTE INTEGRADO */}
             {(rol === '1' || rol === '2') && vistaActual === 'clientes' && <ClientesAdmin rol={rol}/>}
             {(rol === '1' || rol === '2') && vistaActual === 'membresia' && <MembresiasAdmin rol={rol}/>}
             {(rol === '1' || rol === '2') && vistaActual === 'rutinas' && <RutinasAdmin rol={rol}/>}
             {(rol === '1' || rol === '2') && vistaActual === 'asistencia' && <AsistenciasAdmin />}
             {(rol === '1' || rol === '2') && vistaActual === 'pagos' && <PagosAdmin rol={rol}/>}
-            {(rol === '1' || rol === '2') && vistaActual === 'progreso' && <ProgresoAdmin />} {/* <-- SE RENDERIZA EL NUEVO PANEL */}
+            {(rol === '1' || rol === '2') && vistaActual === 'progreso' && <ProgresoAdmin />}
 
-            {/* Vista exclusiva para el Administrador */}
+
+
             {rol === '1' && vistaActual === 'empleados' && <EmpleadosAdmin />}
           </Container>
-        )}
+        )}  
       </div>
     </div>
   );
