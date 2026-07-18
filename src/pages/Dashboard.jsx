@@ -200,11 +200,11 @@ const Dashboard = () => {
             {rol === '3' && vistaActual === 'perfil' && miPerfil && <PerfilCliente miPerfil={miPerfil} />}
 
             {/* Vistas compartidas para Admin y Empleado */}
-            {(rol === '1' || rol === '2') && vistaActual === 'clientes' && <ClientesAdmin />}
-            {(rol === '1' || rol === '2') && vistaActual === 'membresia' && <MembresiasAdmin />}
-            {(rol === '1' || rol === '2') && vistaActual === 'rutinas' && <RutinasAdmin />}
+            {(rol === '1' || rol === '2') && vistaActual === 'clientes' && <ClientesAdmin rol={rol}/>}
+            {(rol === '1' || rol === '2') && vistaActual === 'membresia' && <MembresiasAdmin rol={rol}/>}
+            {(rol === '1' || rol === '2') && vistaActual === 'rutinas' && <RutinasAdmin rol={rol}/>}
             {(rol === '1' || rol === '2') && vistaActual === 'asistencia' && <AsistenciasAdmin />}
-            {(rol === '1' || rol === '2') && vistaActual === 'pagos' && <PagosAdmin />}
+            {(rol === '1' || rol === '2') && vistaActual === 'pagos' && <PagosAdmin rol={rol}/>}
             {(rol === '1' || rol === '2') && vistaActual === 'progreso' && <ProgresoAdmin />} {/* <-- SE RENDERIZA EL NUEVO PANEL */}
 
             {/* Vista exclusiva para el Administrador */}

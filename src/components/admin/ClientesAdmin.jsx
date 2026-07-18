@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Card, Button, Table, Modal, Form, Alert, Row, Col } from "react-bootstrap";
 import { obtenerClientesAdmin, registrarClienteAdmin, editarClienteAdmin, eliminarClienteAdmin } from "../../services/adminClientesApi";
 
-const ClientesAdmin = () => {
+const ClientesAdmin = ({rol}) => {
   const [mostrarModal, setMostrarModal] = useState(false);
   const [listaClientes, setListaClientes] = useState([]);
   const [modoEdicion, setModoEdicion] = useState(false);
   const [idEditando, setIdEditando] = useState(null);
+
+  const esEmpleado = rol === "2";
 
   // Estado inicial con todos los campos requeridos por el Backend de Fit Logic
   const [formData, setFormData] = useState({
@@ -191,9 +193,11 @@ const ClientesAdmin = () => {
                       <Button variant="outline-success" size="sm" className="me-2 fw-bold" onClick={() => abrirModalEditar(cli)}>
                         ✏️ Editar
                       </Button>
+                    {!esEmpleado && (
                       <Button variant="outline-danger" size="sm" className="fw-bold" onClick={() => handleEliminar(cli.id_cliente)}>
                         🗑️ Eliminar
                       </Button>
+                    )}
                     </td>
                   </tr>
                 ))

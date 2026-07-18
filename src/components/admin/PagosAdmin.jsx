@@ -3,12 +3,14 @@ import { Card, Button, Table, Modal, Form, Alert, Row, Col } from "react-bootstr
 import { obtenerPagosAdmin, registrarPagoAdmin, editarPagoAdmin } from "../../services/adminPagosApi";
 import { obtenerClientesAdmin } from "../../services/adminClientesApi";
 
-const PagosAdmin = () => {
+const PagosAdmin = ({ rol }) => {
   const [mostrarModal, setMostrarModal] = useState(false);
   const [listaPagos, setListaPagos] = useState([]);
   const [listaClientes, setListaClientes] = useState([]);
   const [modoEdicion, setModoEdicion] = useState(false);
   const [idEditando, setIdEditando] = useState(null);
+
+  const esEmpleado = rol === "2";
 
   const [formData, setFormData] = useState({
     id_cliente: "",
@@ -158,7 +160,9 @@ const PagosAdmin = () => {
                 <th>MÉTODO</th>
                 <th>PLAN</th>
                 <th>FECHA</th>
+                {!esEmpleado && (
                 <th>ACCIONES</th>
+                )}
               </tr>
             </thead>
             <tbody>
@@ -192,11 +196,13 @@ const PagosAdmin = () => {
                       </span>
                     </td>
                     <td>{pago.fecha || "-"}</td>
-                    <td>
-                      <Button variant="outline-success" size="sm" className="fw-bold" onClick={() => abrirModalEditar(pago)}>
-                        ⚙️ Editar
-                      </Button>
-                    </td>
+                    {!esEmpleado && (
+                      <td>
+                        <Button variant="outline-success" size="sm" className="fw-bold" onClick={() => abrirModalEditar(pago)}>
+                          ⚙️ Editar
+                        </Button>
+                      </td>
+                    )}
                   </tr>
                 ))
               )}

@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { Card, Button, Table, Modal, Form, Alert, Badge } from "react-bootstrap";
 import { obtenerMembresiasAdmin, editarMembresiaAdmin } from "../../services/adminMembresiasApi";
 
-const MembresiasAdmin = () => {
+const MembresiasAdmin = ({ rol }) => {
   const [mostrarModal, setMostrarModal] = useState(false);
   const [listaMembresias, setListaMembresias] = useState([]);
   const [idEditando, setIdEditando] = useState(null);
+
+  const esEmpleado = rol === "2";
 
   // Campos mapeados con el backend de Fit Logic
   const [formData, setFormData] = useState({
@@ -119,7 +121,9 @@ const MembresiasAdmin = () => {
                 <th>FECHA INICIO</th>
                 <th>FECHA FIN</th>
                 <th>ESTADO</th>
+                {!esEmpleado && (
                 <th>ACCIONES</th>
+                )}
               </tr>
             </thead>
             <tbody>
@@ -155,11 +159,13 @@ const MembresiasAdmin = () => {
                         {mem.estado?.toUpperCase()}
                       </Badge>
                     </td>
-                    <td>
-                      <Button variant="outline-success" size="sm" className="fw-bold" onClick={() => abrirModalEditar(mem)}>
-                        ⚙️ Actualizar Plan
-                      </Button>
-                    </td>
+                    {!esEmpleado && (
+                      <td>
+                        <Button variant="outline-success" size="sm" className="fw-bold" onClick={() => abrirModalEditar(mem)}>
+                          ⚙️ Actualizar Plan
+                        </Button>
+                      </td>
+                    )}
                   </tr>
                 ))
               )}
