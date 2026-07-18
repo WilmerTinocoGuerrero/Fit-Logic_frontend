@@ -19,6 +19,7 @@ const ClientesAdmin = ({rol}) => {
     edad: "",
     peso: "",
     altura: "",
+    id_objetivo: "",
   });
 
   const [mensaje, setMensaje] = useState({ tipo: "", texto: "" });
@@ -65,6 +66,7 @@ const ClientesAdmin = ({rol}) => {
       edad: "",
       peso: "",
       altura: "",
+      id_objetivo: "",
     });
     setMostrarModal(true);
   };
@@ -80,6 +82,7 @@ const ClientesAdmin = ({rol}) => {
       edad: cli.edad || "",
       peso: cli.peso || "",
       altura: cli.altura || "",
+      id_objetivo: cli.id_objetivo || "",
     });
     setMostrarModal(true);
   };
@@ -104,6 +107,7 @@ const ClientesAdmin = ({rol}) => {
         edad: formData.edad ? parseInt(formData.edad) : null,
         peso: formData.peso ? parseFloat(formData.peso) : null,
         altura: formData.altura ? parseInt(formData.altura) : null,
+        id_objetivo: formData.id_objetivo ? parseInt(formData.id_objetivo) : null,
       };
 
       if (modoEdicion) {
@@ -297,6 +301,24 @@ const ClientesAdmin = ({rol}) => {
                 </Form.Group>
               </Col>
             </Row>
+
+            {/* NUEVO CAMPO: Selector de Objetivo */}
+            <Form.Group className="mb-3">
+              <Form.Label className="fw-bold">Objetivo Físico:</Form.Label>
+              <Form.Select
+                name="id_objetivo"
+                value={formData.id_objetivo}
+                onChange={handleChange}
+                required
+              >
+                <option value="">Seleccione un objetivo...</option>
+                {/* Asegúrate de que los value coincidan con los id_objetivo de tu base de datos */}
+                <option value="1">Hipertrofia</option>
+                <option value="4">Pérdida de Peso</option>
+                <option value="5">Resistencia</option>
+                <option value="6">Mantenimiento/Salud</option> 
+              </Form.Select>
+            </Form.Group>
 
             <Form.Group className="mb-4">
               <Form.Label className="fw-bold">Contraseña:</Form.Label>
