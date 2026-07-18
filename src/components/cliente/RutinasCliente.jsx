@@ -14,7 +14,8 @@ const RutinasCliente = ({ misRutinas }) => {
   return (
     <div>
       {misRutinas.map((rutina, index) => {
-        const listaEjercicios = rutina.nombre_rutina.split(",");
+        const listaEjercicios = rutina.nombre_rutina.split("\n");
+
         return (
           <div key={index} className="mb-5">
             <h5 className="fw-bold mb-3" style={{ color: "#333" }}>
@@ -77,7 +78,9 @@ const RutinasCliente = ({ misRutinas }) => {
                       }}
                     >
                       {listaEjercicios.map((ejercicio, i) => (
+                        ejercicio.trim() !== "" ? (
                         <li key={i}>{ejercicio.trim()}</li>
+                        ) : null
                       ))}
                     </ul>
                   </Card.Body>

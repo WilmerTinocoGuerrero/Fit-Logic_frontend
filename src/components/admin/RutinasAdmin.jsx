@@ -3,14 +3,12 @@ import { Card, Button, Table, Modal, Form, Alert, Badge, Row, Col } from "react-
 import { obtenerRutinasAdmin, registrarRutinaAdmin, editarRutinaAdmin, eliminarRutinaAdmin } from "../../services/adminRutinasApi";
 import { obtenerClientesAdmin } from "../../services/adminClientesApi";
 
-const RutinasAdmin = ({rol}) => {
+const RutinasAdmin = () => {
   const [mostrarModal, setMostrarModal] = useState(false);
   const [listaRutinas, setListaRutinas] = useState([]);
   const [listaClientes, setListaClientes] = useState([]); // Cargados dinámicamente
   const [modoEdicion, setModoEdicion] = useState(false);
   const [idEditando, setIdEditando] = useState(null);
-
-  const esEmpleado = rol === "2";
 
   const [formData, setFormData] = useState({
     id_cliente: "",
@@ -222,11 +220,9 @@ const RutinasAdmin = ({rol}) => {
                       <Button variant="outline-success" size="sm" className="me-2 fw-bold" onClick={() => abrirModalEditar(rut)}>
                         ✏️ Editar
                       </Button>
-                    {!esEmpleado && (
                       <Button variant="outline-danger" size="sm" className="fw-bold" onClick={() => handleEliminar(rut.id_rutina)}>
                         🗑️ Borrar
                       </Button>
-                    )}
                     </td>
                   </tr>
                 ))
