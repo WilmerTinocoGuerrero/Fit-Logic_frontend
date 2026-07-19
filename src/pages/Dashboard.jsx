@@ -154,7 +154,7 @@ const Dashboard = () => {
               <div>
                 <h3 style={{ fontWeight: 'bold', color: '#333' }}>
                   Fit-Logic /{' '}
-                  <span style={{ color: '#00c853' }}>
+                  <span style={{ color: '#b2e202' }}>
                     {vistaActual === 'resumen' && 'Dashboard'}
                     {vistaActual === 'clientes' && 'Gestión de Clientes'}
                     {vistaActual === 'empleados' && 'Mis Empleados'}
