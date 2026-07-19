@@ -1,3 +1,7 @@
+/*LINK DE FUENTES- TIPO LETRA */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700;800&display=swap');
+
+
 /* Contenedor de toda la sección */
 .features-section {
   background-color: #000000;
@@ -6,21 +10,22 @@
   text-align: center;
 }
 
-/* Estilos de los títulos principales */
-.features-header .icon-timer {
-  font-size: 40px;
-  margin-bottom: 10px;
+
+/* Título principal y descripción: "Somos un gimnasio boutique...." */
+.features-header h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;  /*<-- MÁS GRUESO */
+  font-size: 32px;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+  color: #FFFFFF;
 }
 
-.features-header h2 {
-  font-size: 24px;
-  font-weight: 300;
-  letter-spacing: 2px;
-  margin-bottom: 15px;
-}
 
 .features-header p {
-  font-size: 14px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 300;
+  font-size: 15px;
   color: #CCCCCC;
   max-width: 600px;
   margin: 0 auto 50px auto;
@@ -28,11 +33,15 @@
 }
 
 .features-subheader h3 {
-  font-size: 20px;
-  font-weight: 400;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 22px;
+  font-weight: 700;
   letter-spacing: 1px;
   margin-bottom: 40px;
+  color: #FFFFFF;
 }
+
+/*----------------------------------------------------- */
 
 /* Flexbox para alinear las 3 tarjetas */
 .features-cards-container {
@@ -87,4 +96,14 @@
   font-weight: 700;
   margin-bottom: 30px;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.9); /* Sombrilla para que se lea mejor */
+}
+
+
+/*ICONO DE TIEMPO */
+/* Nuevo estilo para la imagen del reloj */
+.icon-timer-img {
+  width: 220px; /* Puedes subir o bajar este número para cambiar el tamaño */
+  height: auto;
+  margin-bottom: 15px;
+  
 }

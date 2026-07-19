@@ -6,8 +6,14 @@ function Features() {
       
       {/* Encabezado de la sección */}
       <div className="features-header">
-        <div className="icon-timer">⏱️</div>
-        <h2>TU TIEMPO ES VALIOSO</h2>
+        {/* etiqueta imagen del reloj */}
+        <img 
+          className="icon-timer-img" 
+          src="https://www.moores.com.au/app/uploads/EDU-Icon4-1024x512.png" 
+          alt="Icono de tiempo" 
+        />       
+
+        <h2>TU TIEMPO ES VALIOSO </h2>
         <p>
           Somos un gimnasio boutique exclusivo donde cada sesión dura solo 50 minutos 
           y está optimizada para llevarte al máximo de forma eficiente.
@@ -44,4 +50,4 @@ function Features() {
   );
 }
 
-export default Features;
+export default Features;  
