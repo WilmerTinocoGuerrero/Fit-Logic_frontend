@@ -1,4 +1,4 @@
-const API_URL = "http://127.0.0.1:5000/api/admin";
+const API_URL = " https://fit-logic-backend.onrender.com/api/admin";
 
 // 1. OBTENER LISTA DE CLIENTES (GET)
 export const obtenerClientesAdmin = async () => {

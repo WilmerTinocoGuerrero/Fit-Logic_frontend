@@ -1,5 +1,5 @@
 // Ruta donde está corriendo el servidor Flask
-const API_URL = "http://127.0.0.1:5000/api";
+const API_URL = " https://fit-logic-backend.onrender.com/api";
 
 // ------ (API / LOGIN || petición )
 export const loginUsuario = async (correo, password) => {

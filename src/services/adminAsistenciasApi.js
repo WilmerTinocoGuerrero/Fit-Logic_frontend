@@ -1,4 +1,4 @@
-const API_URL = "http://127.0.0.1:5000/api/admin"; // <-- Volvemos a /api/admin
+const API_URL = " https://fit-logic-backend.onrender.com/api/admin"; // <-- Volvemos a /api/admin
 
 // 1. OBTENER HISTORIAL COMPLETO DE ASISTENCIAS (GET)
 export const obtenerAsistenciasAdmin = async () => {

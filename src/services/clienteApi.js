@@ -1,6 +1,5 @@
 // src/services/clienteApi.js
-
-const API_URL = "http://127.0.0.1:5000/api";
+const API_URL = " https://fit-logic-backend.onrender.com/api";
 
 // ----------- ACTUALIZAR PERFIL FISICO
 export const actualizarPerfil = async (id_usuario, peso, altura, edad) => {
